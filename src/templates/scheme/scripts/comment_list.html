@@ -1,0 +1,15 @@
+{% with comments.count as total_comments %}
+          
+<h3 class="mt-5">
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+</h3>
+{% endwith %}
+
+{% if not scripts.comments.all %}
+<p> No comments yet</p>
+
+{% else %}
+{% for comment in scripts.get_comments %}
+    {% include 'includes/script_comment.html' with comment=comment %}
+{% endfor %}
+{% endif %}

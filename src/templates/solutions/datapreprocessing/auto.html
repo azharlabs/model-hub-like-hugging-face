@@ -1,0 +1,118 @@
+{% extends 'solution_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<div class="container-lg" style="margin-top: 60px;">
+    <div class="row">
+        <div class="page-header" style="padding: 0px;margin: 0px; border: 0px;">
+            <div class="d-flex mb-3">
+
+    
+              <div class="flex-grow-1 ms-4">
+                <div class="row">
+                  <div class="col-lg mb-3 mb-lg-0">
+                    <h1 class="page-header-title">{{files.script_name}} (sample)</h1>
+         
+                    <div class="row align-items-center">
+                    
+                      <!-- End Col -->
+                      {% if files.created_date %}
+                      <div class="col-auto">
+                        <div class="row align-items-center g-0">
+                          <div class="col-auto">Created date: {{files.created_date}}</div>
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% if files.author %}
+                      <div class="col-auto">
+                        <div class="row align-items-center g-0">
+                          <div class="col-auto">Owner: {{files.author}}</div>
+                        </div>
+                      </div>
+                      {% endif %}
+              
+                   
+                      <!-- End Col -->
+                    </div>
+                    <hr>
+                    
+                    <!-- End Row -->
+                  </div>
+                  <!-- End Col -->
+    
+                  <div class="col-lg-auto">
+                  
+    
+                    <div class="d-flex">
+                     
+                      
+    
+                      <a class="btn btn-primary" target="_blank" style="margin-right: 10px;" href="{% url 'dashboard:files:analytics' files.pk %}">
+                        Save
+                      </a>
+                      {% if request.GET.execute %}
+                      <a class="btn btn-warning " target="_blank" style="margin-right: 10px;" href="{% url 'solutions:home' %}?data={{files.pk}}">
+                       Changes Report
+                      </a>
+                      {% endif %}
+                      <a class="btn btn-success "href="{{request.get_full_path}}&execute=True">
+                        Execute
+                      </a>
+                    </div>
+                  </div>
+                  <!-- End Col -->
+    
+                </div>
+                <!-- End Row -->
+              
+                  
+               
+              </div>
+            </div>
+            <!-- End Media -->
+            {% if messages %}
+            <ul class="messages ">
+                {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <span class="fw-semi-bold">{{ message }}</span> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+    
+                
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <!-- Nav -->
+            <!-- Nav -->
+
+            <!-- End Nav -->
+          </div>
+    </div>
+    <div class="row">
+     
+        <div class="col-sm-12 mb-6" >
+          <!-- <div class="editor-container">
+            <div id="editor"> -->
+              {{contents|safe}}
+            <!-- </div>
+          </div> -->
+                  
+    
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+
+<script>
+  // INITIALIZATION OF DATATABLES
+// =======================================================
+
+  $(document).ready( function () {
+$('.dataframe ').DataTable({
+
+  pagingType: 'full_numbers',
+  scrollX: true,  
+});
+} );
+</script>
+</div>
+{% endblock %}

@@ -1,0 +1,413 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+    <!-- Content -->
+    <div class="content container-fluid">
+            <!-- Page Header -->
+      <div class="page-header">
+        <div class="d-flex mb-3">
+          <!-- Avatar -->
+          <div class="flex-shrink-0">
+            <div class="avatar avatar-lg avatar-4x3">
+              {% if project.image %}
+              <img class="avatar-img" src="{{ project.image.url }}" alt="Image Description">
+              {% else %}
+              <span class="avatar-initials">{{project.project_name|first}}</span>
+              {% endif %}
+            </div>
+          </div>
+          <!-- End Avatar -->
+
+          <div class="flex-grow-1 ms-4">
+            <div class="row">
+              <div class="col-lg mb-3 mb-lg-0">
+                <h1 class="page-header-title">{{project.project_name|title}}</h1>
+
+                <div class="row align-items-center">
+                {% if project.client_name %}
+                  <div class="col-auto">
+                    <span>Client:</span>
+                    {{project.client_name}}
+                  </div>
+                {% endif %}
+                  <!-- End Col -->
+                  {% if project.due_date %}
+                  <div class="col-auto">
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">Due date: {{project.due_date}}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <!-- End Col -->
+                  {% if project.author %}
+                  <div class="col-auto">
+                    <!-- Select -->
+                    <div class="tom-select-custom">
+                      <p> Owner : {{project.author}}</p>
+                    </div>
+                    <!-- End Select -->
+                  </div>
+                  {% endif %}
+                  <!-- End Col -->
+                </div>
+                <hr>
+                <p>{{project.description|title}}</p>
+                <!-- End Row -->
+              </div>
+              <!-- End Col -->
+
+              <div class="col-lg-auto">
+              
+
+                <div class="d-flex">
+                 
+                  
+
+                  <a class="btn btn-primary btn-icon rounded-circle" style="margin-right: 10px;" href="{% url 'dashboard:projects:projects_edit' project.pk%}">
+                    <i class="bi-pencil-fill"></i>
+                  </a>
+                  <a class="btn btn-primary btn-icon rounded-circle" href="{% url 'dashboard:projects:projects_files' project.pk %}">
+                    Data
+                  </a>
+                </div>
+              </div>
+              <!-- End Col -->
+
+            </div>
+            <!-- End Row -->
+          
+              
+           
+          </div>
+        </div>
+        <!-- End Media -->
+
+        <!-- Nav -->
+        <!-- Nav -->
+        <div class="js-nav-scroller hs-nav-scroller-horizontal">
+          <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+            <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+              <i class="bi-chevron-left"></i>
+            </a>
+          </span>
+
+          <span class="hs-nav-scroller-arrow-next" style="display: none;">
+            <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+              <i class="bi-chevron-right"></i>
+            </a>
+          </span>
+
+          
+        </div>
+        <!-- End Nav -->
+      </div>
+      <!-- End Page Header -->
+
+        <!-- Card -->
+        <div class="card">
+          <!-- Header -->
+          <div class="card-header card-header-content-md-between">
+            <div class="mb-2 mb-md-0">
+              
+            </div>
+            <!-- End Col -->
+  
+            <div class="d-grid d-sm-flex align-items-sm-center gap-2">
+              <!-- Datatable Info -->
+              <div id="datatableCounterInfo" >
+                <div class="d-flex align-items-center">
+                  
+  
+                  <button class="btn btn-outline-danger btn-sm" form="delete" type="submit">
+                    <i class="bi-trash"></i> Delete
+                  </button>
+                </div>
+              </div>
+              <div id="datatableCounterInfo" >
+                <div class="d-flex align-items-center">
+                  
+  
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareWithPeopleModal">Add Products</button>
+                </div>
+              </div>
+              
+              <!-- End Datatable Info -->
+  
+             
+            </div>
+          </div>
+          <!-- End Header -->
+
+          <form action="{% url 'dashboard:product:delete' project.pk %}" method="POST" id="delete" enctype="multipart/form-data">
+            {% csrf_token %}
+          </form>
+  
+  
+          <!-- Table -->
+          <div class="table-responsive p-4" >
+            <table id="datatable" {% if not product %} style="height: 500px;" {% endif %} class="table table-borderless table-thead-bordered card-table pt-3" >
+              <thead class="thead-light">
+
+                <tr>
+                  <th scope="col" class="table-column-pe-0">
+                    <!-- <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="datatableCheckAll" style="border: 1px solid rgb(24, 24, 24);">
+                      <label class="form-check-label" for="datatableCheckAll"></label>
+                    </div> -->
+                  </th>
+                  <th scope="col" class="table-column-ps-0">Name</th>
+                  <th scope="col" >author</th>
+                  <th scope="col" >created_date</th>
+                  <th scope="col" >project</th>
+                  
+                  <th scope="col">description</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for row in product %}
+                <tr>
+                  <td class="table-column-pe-0">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="{{row.pk}}" form="delete" name="id" id="teamDataCheck1" style="border: 1px solid rgb(24, 24, 24);">
+                      <label class="form-check-label" for="teamDataCheck1"></label>
+                    </div>
+                  </td>
+                  <td class="table-column-ps-0"><a href="{% url 'dashboard:product:product_detail' row.pk %}">{{row.product_name}}</a></td>
+                  <td>{{row.author}}</td>
+                  <td>{{row.created_date}}</td>
+                  <td>{{row.project}}</td>
+                  <td>{{row.description}}</td>
+                  
+                  
+                  <td>
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-white btn-sm" id="teamsDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                        More <i class="bi-chevron-down ms-1"></i>
+                      </button>
+  
+                      <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end" aria-labelledby="teamsDropdown1">
+                        <a class="dropdown-item" href="#">Rename team</a>
+                        <a class="dropdown-item" href="#">Add to favorites</a>
+                        <a class="dropdown-item" href="#">Archive team</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+          <!-- End Table -->
+        
+          
+        </div>
+        <!-- End Card -->
+    </div>
+    <div class="modal fade" id="shareWithPeopleModal" tabindex="-1" aria-labelledby="shareWithPeopleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="shareWithPeopleModalLabel">Add Product</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <!-- Body -->
+          <div class="modal-body">
+            <!-- Form -->
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+             
+                <!-- Form -->
+                <div class="mb-3">
+                  <label for="project_title" class="form-label">Product name</label>
+  
+                  <input type="text" class="form-control form-control-hover-light" id="product_title" >
+                  <input type="text" class="form-control form-control-hover-light" id="current_project" value="{{project.pk}}" hidden >
+                  </div>
+                <!-- End Form -->
+  
+                <!-- Form -->
+                <div class="mb-3">
+                  <label for="project_description" class="form-label">Description</label>
+                  <textarea  class="form-control form-control-hover-light" id="product_description" cols="30" rows="5"></textarea>
+  
+                  
+                </div>
+                <!-- End Form -->
+  
+                <!-- Form -->
+             
+            
+            </form>
+            <!-- End Form Switch -->
+          </div>
+          <!-- End Body -->
+  
+          <!-- Footer -->
+          <div class="modal-footer">
+            <div class="row align-items-center flex-grow-1 mx-n2">
+              <div class="col-sm-9 mb-2 mb-sm-0">
+                
+              </div>
+              <!-- End Col -->
+  
+              <div class="col-sm-3 text-sm-end">
+                <button class="btn btn-primary" id="product-add-btn">Save</button>
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Footer -->
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addtasks" tabindex="-1" aria-labelledby="addtaskslabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="addtaskslabel">Add Tasks</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <!-- Body -->
+          <div class="modal-body">
+            <!-- Form -->
+            <form method="post" id="add_task_form" enctype="multipart/form-data">
+              {% csrf_token %}
+             
+                <!-- Form -->
+                <div class="mb-3">
+                  <label for="project_title" class="form-label">Task name</label>
+  
+                  <input type="text" form="add_task_form" class="form-control form-control-hover-light" id="task_title" >
+                  <label for="id_team" class="form-label">Select Team </label>
+                  <input type="text" form="add_task_form" value="{{team_choices}}" name="selected_team" id='selected_team' class="form-control" hidden>
+                 
+                 <input type="text"  id="task_project" hidden value="{{project.id}}">
+                  </div>
+                <!-- End Form -->
+  
+                <!-- Form -->
+                <!-- End Form -->
+  
+                <!-- Form -->
+             
+            
+            </form>
+            <!-- End Form Switch -->
+          </div>
+          <!-- End Body -->
+  
+          <!-- Footer -->
+          <div class="modal-footer">
+            <div class="row align-items-center flex-grow-1 mx-n2">
+              <div class="col-sm-9 mb-2 mb-sm-0">
+                
+              </div>
+              <!-- End Col -->
+  
+              <div class="col-sm-3 text-sm-end">
+                <button class="btn btn-primary" form="'add_task_form" id="add_task_form-btn" type="submit">Save</button>
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Footer -->
+        </div>
+      </div>
+    </div>
+<script>
+    $('#add_task_form-btn').click(function(){
+  console.log("task add function called");
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+$.ajax({
+      url: "/dashboard/tasks/add/",
+      type: "POST",
+      data:{ 
+        'title': $('#task_title').val(),
+        'selected_project':$('#task_project').val(),
+        'selected_team': $('#selected_team').val(), 
+        csrfmiddlewaretoken: csrftoken },
+          dataType : "html",
+      success: function (data) {
+        console.log(data);
+        
+          const settingToast = new bootstrap.Toast(document.querySelector('#notificationsettingToast'))
+          $('#notificationsettingToast-body').html(data)
+          
+        
+          if (data=="tasks added"){
+            location.reload(true);
+          }else{
+        
+            $('#title').val('');
+            $('#selected_team').val('');
+      
+            $('#shareWithPeopleModal').click();
+            
+            settingToast.show();
+           
+          }
+        
+      }
+  });
+})
+
+  $('#product-add-btn').click(function(){
+  console.log("product add function called");
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+$.ajax({
+      url: "/dashboard/product/add/",
+      type: "POST",
+      data:{ 
+        'title': $('#product_title').val(),
+        'project':$('#current_project').val(),
+        'description': $('#product_description').val(), 
+        csrfmiddlewaretoken: csrftoken },
+          dataType : "html",
+      success: function (data) {
+        console.log(data);
+        
+          const settingToast = new bootstrap.Toast(document.querySelector('#notificationsettingToast'))
+          $('#notificationsettingToast-body').html(data)
+          
+          console.log(data)
+        
+          if (data=="Product added"){
+            location.reload(true);
+          }else{
+        
+            $('#product_title').val('');
+            $('#current_project').val('');
+            $('#product_description').val('');
+            $('#shareWithPeopleModal').click();
+            
+            settingToast.show();
+           
+          }
+        
+      }
+  });
+})
+</script>
+<script>
+      // INITIALIZATION OF DATATABLES
+    // =======================================================
+
+      $(document).ready( function () {
+    $('#datatable').DataTable({
+
+      pagingType: 'full_numbers',
+    });
+} );
+  </script>
+
+{% endblock %}

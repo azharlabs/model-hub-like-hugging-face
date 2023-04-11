@@ -1,0 +1,16 @@
+{% if fields %}
+{% for i in fields %}
+  <p><b>{{i.field_name}}: </b>
+    <span 
+        class="btn btn-outline-danger" 
+        hx-delete="{% url 'dashboard:fields:delete' i.pk %}" 
+        hx-target="#field_list" 
+        hx-confirm="Are you sure you wish to delete?">Delete</span>
+    </p>
+
+  <p>{{i.description}}</p>
+  <hr>
+{% endfor %}
+{% else %}
+<p>No fields added</p>
+{% endif %}

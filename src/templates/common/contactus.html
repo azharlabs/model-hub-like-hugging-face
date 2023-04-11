@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container content-space-t-3 content-space-t-lg-4" style="padding-left:120px;padding-right:120px; ">
+    <div class="row">
+      <div class="col-lg-6 mb-9 mb-lg-0">
+        <!-- Heading -->
+        <div class="mb-5">
+          <h1>Get in touch</h1>
+          <p>We'd love to talk about how we can help you.</p>
+        </div>
+        <!-- End Heading -->
+
+        <!-- Leaflet -->
+        <div class="overflow-hidden">
+          <div id="map" class="leaflet mb-5 leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" data-hs-leaflet-options="{
+               &quot;map&quot;: {
+                 &quot;scrollWheelZoom&quot;: false,
+                 &quot;coords&quot;: [37.4040344, -122.0289704]
+               },
+               &quot;marker&quot;: [
+                 {
+                   &quot;coords&quot;: [37.4040344, -122.0289704],
+                   &quot;icon&quot;: {
+                     &quot;iconUrl&quot;: &quot;{% static 'assets/svg/components/map-pin.svg' %}&quot;,
+                     &quot;iconSize&quot;: [50, 45]
+                   },
+                   &quot;popup&quot;: {
+                     &quot;text&quot;: &quot;153 Williamson Plaza, Maggieberg&quot;
+                   }
+                 }
+               ]
+              }" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(75px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1319/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(231px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1319/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(231px, 232px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1318/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-25px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1320/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(487px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1318/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-25px, 232px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1320/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(487px, 232px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1317/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-281px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/13/1317/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-281px, 232px, 0px); opacity: 1;"></div></div><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1319/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(231px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1319/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(231px, 232px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1318/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-25px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1320/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(487px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1318/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-25px, 232px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1320/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(487px, 232px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1317/3176?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-281px, -24px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/13/1317/3177?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-281px, 232px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><img src="{% static 'assets/svg/components/map-pin.svg' %}" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="Marker" tabindex="0" role="button" style="margin-left: -25px; margin-top: -22.5px; width: 50px; height: 45px; transform: translate3d(273px, 240px, 0px); z-index: 240;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(337706px, 813320px, 0px) scale(4096);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a></div></div></div></div>
+        </div>
+        <!-- End Leaflet -->
+
+        <div class="row">
+          <div class="col-sm-6">
+            <h5 class="mb-1">Call us:</h5>
+            <p>+1 (062) 109-9222</p>
+          </div>
+          <!-- End Col -->
+
+          <div class="col-sm-6">
+            <h5 class="mb-1">Email us:</h5>
+            <p>hello@example.com</p>
+          </div>
+          <!-- End Col -->
+
+          <div class="col-sm-6">
+            <h5 class="mb-1">Address:</h5>
+            <p>153 Williamson Plaza, Maggieberg</p>
+          </div>
+          <!-- End Col -->
+        </div>
+        <!-- End Row -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-lg-6">
+        <div class="ps-lg-5">
+          <!-- Card -->
+          <div class="card">
+            <div class="card-header border-bottom text-center">
+              <h3 class="card-header-title">General inquiries</h3>
+            </div>
+
+            <div class="card-body">
+              <!-- Form -->
+              <form method="post" class="js-validate needs-validation" >
+                {% csrf_token %}
+                 <!-- Form -->
+                 <div class="mb-3">
+                    <label class="form-label" for="hireUsFormFirstName">Full name</label>
+                    <input type="text" id="fullname" required class="form-control form-control-lg" name="Full Name" id="hireUsFormFirstName" placeholder="Full name" aria-label="Full name">
+                  </div>
+                  <!-- End Form -->
+           
+
+                <div class="row gx-3">
+                  <div class="col-sm-6">
+                    <!-- Form -->
+                    <div class="mb-3">
+                      <label class="form-label" for="hireUsFormWorkEmail">Email address</label>
+                      <input type="email" id='email' required class="form-control form-control-lg" name="Email" id="hireUsFormWorkEmail" placeholder="email@site.com" aria-label="email@site.com">
+                    </div>
+                    <!-- End Form -->
+                  </div>
+                  <!-- End Col -->
+
+                  <div class="col-sm-6">
+                    <!-- Form -->
+                    <div class="mb-3">
+                      <label class="form-label" for="hireUsFormPhone">Phone <span class="form-label-secondary">(Optional)</span></label>
+                      <input type="text" id="phone" required class="form-control form-control-lg" name="Phone" id="hireUsFormPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx">
+                    </div>
+                    <!-- End Form -->
+                  </div>
+                  <!-- End Col -->
+                </div>
+                <!-- End Row -->
+
+                <!-- Form -->
+                <div class="mb-3">
+                  <label class="form-label" for="hireUsFormDetails">Details</label>
+                  <textarea class="form-control form-control-lg" required id='detail' name="Details" id="hireUsFormDetails" placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows="4"></textarea>
+                </div>
+                <!-- End Form -->
+
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary btn-lg" id="contact-btn">Send inquiry</button>
+                </div>
+
+                <div class="text-center">
+                  <p class="form-text">We'll get back to you in 1-2 business days.</p>
+                </div>
+              </form>
+              <!-- End Form -->
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
+      </div>
+      <!-- End Col -->
+    </div>
+    <!-- End Row -->
+  </div>
+              <!-- Toast -->
+              <div id="contactToast" class="position-fixed toast hide" role="alert" aria-live="assertive" aria-atomic="true" style="top: 20px; right: 20px; z-index: 1000;">
+                <div class="toast-header">
+                  <div class="d-flex align-items-center flex-grow-1">
+                    <div class="flex-shrink-0">
+                      
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h5 class="mb-0">Notification</h5>
+                  
+                    </div>
+                    <div class="text-end">
+                      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="toast-body">
+                  We received your message, We'll get back to you in 1-2 business days.
+                </div>
+              </div>
+              <!-- End Toast -->
+<script>
+    $('#contact-btn').click(function(){
+      $.ajax({
+            url: "{% url 'common:save_contact' %}",
+            type: "POST",
+            data:{ 'fullname': $('#fullname').val(), 'email': $('#email').val(), 'phone': $('#phone').val(), 'detail': $('#detail').val(),csrfmiddlewaretoken: '{{ csrf_token }}' },
+                dataType : "html",
+            success: function (data) {
+              console.log(data);
+              if (data=='Success') {
+                const contactToast = new bootstrap.Toast(document.querySelector('#contactToast'))
+                contactToast.show();
+                $('#fullname').val('');
+                $('#email').val('');
+                $('#phone').val('');
+                $('#detail').val('');
+              };
+              
+            }
+        });
+    });
+</script>
+{% endblock %}

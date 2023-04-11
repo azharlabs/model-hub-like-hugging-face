@@ -1,0 +1,35 @@
+{% extends 'solution_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<div class="container-lg" style="margin-top: 60px;">
+    <h2>Supervised Machine Learning</h2>
+    <br>
+    <div class="row">
+        <div class="col-4">
+            <!-- Card -->
+            <div class="card" style="max-width: 20rem;">
+                <div class="card-body">
+                    <span class="card-subtitle">Supervised</span>
+                    <h3 class="card-title">Classification</h3>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a class="card-link" href="{% url 'solutions:classification' %}?data={{request.GET.data}}">Go</a>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <div class="col-4">
+            <!-- Card -->
+            <div class="card" style="max-width: 20rem;">
+                <div class="card-body">
+                    <span class="card-subtitle">Supervised</span>
+                    <h3 class="card-title">Regression</h3>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a class="card-link" href="#">Go</a>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+
+</div>
+{% endblock %}

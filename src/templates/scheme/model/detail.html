@@ -1,0 +1,118 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+
+<style>
+  .editor-container {
+    width: 900px;
+    height: 540px;
+    margin: 20px auto;
+    position: relative;
+  }
+  
+  #editor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
+  }
+  
+  </style>
+<div class="container-fluid pt-5">
+                <!-- Page Header -->
+                <div class="page-header" style="padding: 0px;margin: 0px; border: 0px;">
+                    <div class="d-flex mb-3">
+
+            
+                      <div class="flex-grow-1 ms-4">
+                        <div class="row">
+                          <div class="col-lg mb-3 mb-lg-0">
+                            <a href="{% url 'dashboard:product:product_detail' model.product.pk %}"><h1 class="page-header-title">{{model.product}}</h1></a>
+                 
+                            <div class="row align-items-center">
+                            
+                              <!-- End Col -->
+                              {% if model.created_date %}
+                              <div class="col-auto">
+                                <div class="row align-items-center g-0">
+                                  <div class="col-auto">Created date: {{model.created_date}}</div>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if model.author %}
+                              <div class="col-auto">
+                                <div class="row align-items-center g-0">
+                                  <div class="col-auto">Owner: <a href="{% url 'accounts:my_profile' model.author|profile_pk %}">{{model.author}}</a></div>
+                                </div>
+                              </div>
+                              {% endif %}
+                      
+                           
+                              <!-- End Col -->
+                            </div>
+                            <hr>
+                            
+                            <!-- End Row -->
+                          </div>
+                          <!-- End Col -->
+            
+
+            
+                        </div>
+                        <!-- End Row -->
+                      
+                          
+                       
+                      </div>
+                    </div>
+                    <!-- End Media -->
+                    {% if messages %}
+                    <ul class="messages ">
+                        {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <span class="fw-semi-bold">{{ message }}</span> 
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+            
+                        
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <!-- Nav -->
+                    <!-- Nav -->
+      
+                    <!-- End Nav -->
+                  </div>
+                  <!-- End Page Header -->
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-9">
+          <div class="editor-container">
+            <div id="editor">
+              {{contents}}
+            </div>
+          </div>
+                  
+    
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+
+<script>
+  let editor = document.querySelector("#editor");
+  
+  ace.edit(editor, {
+    theme: "ace/theme/cobalt",
+    mode: "ace/mode/python",
+  });
+  editor.gotoLine(lineNumber);
+
+  editor.setReadOnly(true);
+    </script>
+{% endblock %}

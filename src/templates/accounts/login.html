@@ -1,0 +1,177 @@
+{% extends 'auth_base.html'%}
+{% load static %}
+
+{% block content %}
+
+    <!-- Content -->
+    <div class="container-fluid px-3">
+        <div class="row">
+
+          <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center min-vh-lg-100 position-relative bg-light px-0">
+            <!-- Logo & Language -->
+            <div class="position-absolute top-0 start-0 end-0 mt-3 mx-3">
+              <div class="d-none d-lg-flex justify-content-between">
+                <a href="/">
+                  <img class="w-100" src="{% static 'assets\img\logo\tenison-logo.png' %}" alt="Image Description" data-hs-theme-appearance="default" style="min-width: 7rem; max-width: 7rem;">
+                  <img class="w-100" src="{% static 'assets\img\logo\logo-dark.png' %}" alt="Image Description" data-hs-theme-appearance="dark" style="min-width: 7rem; max-width: 7rem;">
+                </a>
+  
+            
+              </div>
+            </div>
+            <!-- End Logo & Language -->
+  
+            <div style="max-width: 23rem;">
+              <div class="text-center mb-5">
+                <img class="img-fluid" src="{% static 'assets/svg/illustrations/oc-chatting.svg' %}" alt="Image Description" style="width: 12rem;" data-hs-theme-appearance="default">
+                <img class="img-fluid" src="{% static 'assets/svg/illustrations-light/oc-chatting.svg' %}" alt="Image Description" style="width: 12rem;" data-hs-theme-appearance="dark">
+              </div>
+  
+              <div class="mb-5">
+                <h2 class="display-5">Build digital products with:</h2>
+              </div>
+  
+              <!-- List Checked -->
+              <ul class="list-checked list-checked-lg list-checked-primary list-py-2">
+                <li class="list-checked-item">
+                  <span class="d-block fw-semi-bold mb-1">All-in-one tool</span>
+                  Build, run, and scale your apps - end to end
+                </li>
+  
+                <li class="list-checked-item">
+                  <span class="d-block fw-semi-bold mb-1">Easily add &amp; manage your services</span>
+                  It brings together your tasks, projects, timelines, files and more
+                </li>
+              </ul>
+              <!-- End List Checked -->
+  
+              <div class="row justify-content-between mt-5 gx-3">
+                <div class="col">
+                  <img class="img-fluid" src="{% static 'assets/svg/brands/gitlab-gray.svg' %}" alt="Logo">
+                </div>
+                <!-- End Col -->
+  
+                <div class="col">
+                  <img class="img-fluid" src="{% static 'assets/svg/brands/fitbit-gray.svg' %}" alt="Logo">
+                </div>
+                <!-- End Col -->
+  
+                <div class="col">
+                  <img class="img-fluid" src="{% static 'assets/svg/brands/flow-xo-gray.svg' %}" alt="Logo">
+                </div>
+                <!-- End Col -->
+  
+                <div class="col">
+                  <img class="img-fluid" src="{% static 'assets/svg/brands/layar-gray.svg' %}" alt="Logo">
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+            </div>
+          </div>
+          <!-- End Col -->
+  
+          <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
+            
+            <div class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1" style="max-width: 25rem;">
+              <!-- Form -->
+              <form class="js-validate needs-validation" method="POST">
+                {% csrf_token %}
+                <div class="text-center">
+                  <div class="mb-5">
+                    <h1 class="display-5">Sign in</h1>
+                    <p>Don't have an account yet? <a class="link" href="{% url 'accounts:signup' %}">Sign up here</a></p>
+                  </div>
+  
+                  <div class="d-grid mb-4">
+                    <a class="btn btn-white btn-lg" href="#">
+                      <span class="d-flex justify-content-center align-items-center">
+                        <img class="avatar avatar-xss me-2" src="{% static 'assets/svg/brands/google-icon.svg' %}" alt="Image Description">
+                        Sign in with Google
+                      </span>
+                    </a>
+                  </div>
+  
+                  <span class="divider-center text-muted mb-4">OR</span>
+                </div>
+  
+                <!-- Form -->
+                <div class="mb-4">
+                  <label class="form-label" for="signinSrEmail">Email or Username</label>
+                  <input type="text" class="form-control form-control-lg" name="username" id="signinSrEmail" tabindex="1" placeholder="mark@address.com or mark" aria-label="email@address.com" required>
+                  <span class="invalid-feedback">Please enter a valid email address.</span>
+                </div>
+                <!-- End Form -->
+  
+                <!-- Form -->
+                <div class="mb-4">
+                  <label class="form-label w-100" for="signupSrPassword" tabindex="0">
+                    <span class="d-flex justify-content-between align-items-center">
+                      <span>Password</span>
+                      <a class="form-label-link mb-0" href="{% url 'accounts:password_reset' %}">Forgot Password?</a>
+                    </span>
+                  </label>
+  
+                  <div class="input-group input-group-merge" data-hs-validation-validate-class>
+                    <input type="password" class="js-toggle-password form-control form-control-lg" name="password" id="signupSrPassword" placeholder="8+ characters required" aria-label="8+ characters required" required minlength="8" data-hs-toggle-password-options='{
+                             "target": "#changePassTarget",
+                             "defaultClass": "bi-eye-slash",
+                             "showClass": "bi-eye",
+                             "classChangeTarget": "#changePassIcon"
+                           }'>
+                    <a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;">
+                      <i id="changePassIcon" class="bi-eye"></i>
+                    </a>
+                  </div>
+  
+                  <span class="invalid-feedback">Please enter a valid password.</span>
+                </div>
+                <!-- End Form -->
+  
+            
+  
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                </div>
+              </form>
+              <!-- End Form -->
+            </div>
+          </div>
+          <!-- End Col -->
+<!-- Toast Luncher -->
+
+
+<!-- Toast -->
+<div id="liveToast" class="position-fixed toast show" role="alert" aria-live="assertive" aria-atomic="true" style="top: 20px; right: 20px; z-index: 1000;">
+  <div class="toast-header">
+    <div class="d-flex align-items-center flex-grow-1">
+      <div class="flex-shrink-0">
+        
+      </div>
+      <div class="flex-grow-1 ms-3">
+        <h5 class="mb-0">Admin</h5>
+     
+      </div>
+      <div class="text-end">
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <div class="toast-body">
+    Hello, if you are logging for first time, check your email for your password.
+  </div>
+</div>
+<!-- End Toast -->
+<script>
+  // INITIALIZATION OF LIVE TOAST
+  // =======================================================
+  const liveToast = new bootstrap.Toast(document.querySelector('#liveToast'))
+  liveToast.show()
+
+</script>
+        </div>
+        <!-- End Row -->
+
+      </div>
+      <!-- End Content -->
+{% endblock %}

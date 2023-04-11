@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+{% load static %}
+{% load tags %}
+
+{% block content %}
+<div class="container pt-6 pb-6">
+    <div class="row pt-6">
+        <div class="text-center mb-5 mb-md-9">
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1 active" href="javascript:;">Business</a>
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1" href="javascript:;">Strategy</a>
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1" href="javascript:;">Health</a>
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1" href="javascript:;">Creative</a>
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1" href="javascript:;">Environment</a>
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1" href="javascript:;">Adventure</a>
+            <a class="btn btn-soft-secondary btn-xs rounded-pill m-1" href="javascript:;">Stories</a>
+          </div>
+    </div>
+    <div class="col-12 mb-3 mb-sm-7">
+         
+            {% if tag %}
+            <h2 class="mb-3">Posts tagged with "{{ tag.name }}"</h2>
+            {% endif %}
+            
+            <div class="row align-items-md-center">
+              <div class="col-md-8">
+               {% for post in posts %}
+                <div class="card-body">
+                    <a class="card-subtitle" href="{% url 'accounts:my_profile'  post.author|profile_pk %}">{{post.author}}</a>
+                    <h2 class="card-title"><a class="text-dark" href="{% url 'blog:post_detail' post.slug %}">{{post.title|title }}</a></h2>
+                    <p class="card-text">{{post.body|truncatechars_html:50|safe|title }}</p>
+                    {% if post.tags %}
+                    <div class="total-like-block ml-2 mr-3"> 
+                       <strong>Tags:</strong><span>
+                       {% for tag in post.tags.all %}
+                           <a href="{% url 'blog:post_tag' tag.slug %}" class="link-light text-decoration-none badge bg-secondary">
+                               {{tag.name}}
+                           </a></span>
+                           <!-- {% if not forloop.last %}, {% endif %} -->
+                       {% endfor %}
+                   
+                 </div>
+                 {% endif %}
+                    <a class="card-link" href="{% url 'blog:post_detail' post.slug %}">Read more <i class="bi-chevron-right small ms-1"></i></a>
+                  </div>
+               {% endfor %}
+              </div>
+              <!-- End Col -->
+
+              <div class="col-md-4">
+                <div class="card card-flush">
+                  <div class="iq-card pt-5 pb-5" style="padding-left: 10px;">
+                     <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                           <h4 class="card-title">Popular Tags</h4>
+                        </div>
+                     </div>
+                     <div class="iq-card-body">
+                        <ul class="media-story m-0 p-0">
+                         <li class="d-flex align-items-center "></li>
+                    
+                            {% for i in tags_common %}
+                            <a href="{% url 'blog:post_tag' i.slug %}" class="link-light text-decoration-none badge bg-secondary" style="font-size: 12px;">
+                              {{i.name}}
+                          </a>
+                            {% endfor %}
+                         </li>
+                           <!-- <li class="d-flex mb-4 align-items-center">
+                              <i class="ri-add-line font-size-18"></i>
+                              <div class="stories-data ml-3">
+                                 <h5>Creat Your Story</h5>
+                                 <p class="mb-0">time to story</p>
+                              </div>
+                           </li> -->
+                    
+                        </ul>
+                    
+                     </div>
+                    </div>
+                    <hr>
+                    <div class="iq-card pt-5 pb-5" style="padding-left: 10px;">
+                     <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                           <h4 class="card-title">Most commented</h4>
+                        </div>
+                     </div>
+                     <div class="iq-card-body">
+                        <ul class="media-story m-0 p-0">
+                         <li class="d-flex align-items-center "></li>
+                    
+                      
+                        {% get_most_commented_posts as most_commented_posts %}
+                         <ul>
+                          {% for post in most_commented_posts %}
+                         <li>
+                         <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a>
+                         </li>
+                          {% endfor %}
+                         </ul>
+                         
+                    
+                    
+                        </ul>
+                    
+                     </div>
+                    </div>
+                </div>
+                
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+     
+        </div>
+</div>
+
+<div class="row">
+    
+    
+    
+    <div class="col-lg-8 row m-0 p-0 infinite-container">
+  
+
+</div>
+<div class="col-lg-4">
+
+</div>
+
+
+
+
+{% endblock %}

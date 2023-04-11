@@ -1,0 +1,123 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<div class="container pt-5">
+    <div class="row">
+      <div class="text-center mb-5 mb-md-9">
+        <a class="btn btn-soft-dark btn-xs rounded-pill m-1 " href="{% url 'accounts:following_list' request.user|profile_pk %}">My connections</a>
+        <a class="btn btn-soft-dark btn-xs rounded-pill m-1" href="{% url 'accounts:followers_list' request.user|profile_pk %}">Followers</a>
+        <a class="btn btn-soft-dark btn-xs rounded-pill m-1 active" href="{% url 'accounts:all_user' %}">All Users</a>
+      </div>
+
+    </div>
+    <div class="tab-content pt-6 " id="connectionsTabContent">
+        <div class="tab-pane fade active show" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+          <!-- Connections -->
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
+            {% for user in all_user %}
+            {% if request.user.username != user.user.username %}
+            <div class="col mb-3 mb-lg-5">
+              <!-- Card -->
+              <div class="card h-100">
+                <div class="card-pinned">
+                  <div class="card-pinned-top-end">
+                    <!-- Dropdown -->
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="connectionsDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi-three-dots-vertical"></i>
+                      </button>
+    
+                      <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end" aria-labelledby="connectionsDropdown1">
+                        <a class="dropdown-item" href="#">Share connection</a>
+                        <a class="dropdown-item" href="#">Block connection</a>
+                        
+                      </div>
+                    </div>
+                    <!-- End Dropdown -->
+                  </div>
+                </div>
+    
+                <!-- Body -->
+                <div class="card-body text-center">
+                  <!-- Avatar -->
+                  {% if user.profile_pic %}
+                  <div class="avatar avatar-xl avatar-soft-primary avatar-circle avatar-centered mb-3">
+                    <img src="{{user.profile_pic.url}}" class="avatar-img" alt="profile_pic" srcset="">
+                    
+                    <span class="avatar-status avatar-sm-status avatar-status-{% if user.user|see_users %}success{% else %}warning{% endif %}"></span>
+                  </div>
+                  {% else %}
+                  <div class="avatar avatar-xl avatar-soft-primary avatar-circle avatar-centered mb-3">
+                    <span class="avatar-initials">{{user.user.username|first}}</span>
+                    <span class="avatar-status avatar-sm-status avatar-status-{% if user.user|see_users %}success{% else %}warning{% endif %}"></span>
+                  </div>
+                  {% endif %}
+                  <!-- End Avatar -->
+    
+                  <h3 class="mb-1">
+                    <a class="text-dark" href="{% url 'accounts:my_profile' user.pk %}">{{user.user}}</a>
+                  </h3>
+    
+                  <div class="mb-3">
+                    <i class="bi-building me-1"></i>
+                    <span>{{user.company}}</span>
+                  </div>
+    
+                  <!-- Badges -->
+                  <!-- <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a class="badge bg-soft-secondary text-secondary p-2" href="#">UI/UX</a></li>
+                    <li class="list-inline-item"><a class="badge bg-soft-secondary text-secondary p-2" href="#">Sketch</a></li>
+                    <li class="list-inline-item"><a class="badge bg-soft-secondary text-secondary p-2" href="#">Figma</a></li>
+                  </ul> -->
+                  <!-- End Badges -->
+                </div>
+                <!-- End Body -->
+    
+                <!-- Footer -->
+                <div class="card-footer">
+                  <div class="row justify-content-between align-items-center">
+                    <div class="col-auto py-1">
+                      <!-- <a class="fs-6 text-body" href="#">25 connections</a> -->
+                    </div>
+    
+                    <div class="col-auto py-1">
+                      <!-- Form Check -->
+                      <div class="form-check form-check-switch">
+                        {% is_following request.user user.user as following_status %}
+                       
+                            {% if following_status %}
+                            <form method="POST" action="{% url 'accounts:remove-follower' user.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-primary" type="submit">Remove Connection</button>
+                            </form>
+                            {% else %}
+                            <form method="POST" action="{% url 'accounts:add-follower' user.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-primary" type="submit"><i class="bi-person-plus-fill me-1"></i> Connection</button>
+                            </form>
+                            {% endif %}
+                          
+                       
+                      </div>
+                      <!-- End Form Check -->
+                    </div>
+                  </div>
+                </div>
+                <!-- End Footer -->
+              </div>
+              <!-- End Card -->
+            </div>
+            {% endif %}
+            {% endfor  %}
+            <!-- End Col -->
+          </div>
+          <!-- End Connections -->
+        </div>
+    
+       
+      </div>
+</div>
+
+
+{% endblock %}

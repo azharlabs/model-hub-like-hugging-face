@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+
+<div class="container-lg">
+
+
+    
+        <div class="overflow-hidden">
+          <!-- Hero -->
+          <div class="position-relative bg-img-start" >
+            <div class="container content-space-t-3 content-space-t-lg-5 content-space-b-2 content-space-b-lg-3">
+              <!-- Heading -->
+              <div class="w-md-75 w-lg-50 text-center mx-auto mb-9">
+                <h1>Find the right plan for your business</h1>
+              </div>
+              <!-- End Heading -->
+    
+         
+            </div>
+          </div>
+          <!-- End Hero -->
+    
+          <!-- Pricing -->
+          <div class="container mt-n5 mt-lg-n10">
+            <div class="position-relative zi-1 mb-10">
+              <div class="row">
+                <div class="col-md mb-3 mb-md-0">
+                    
+                  <!-- Card -->
+                  <div class="card h-100 zi-1">
+                    <div class="card-header text-center">
+                      <div class="mb-2">
+                        <span class="fs-5 align-top text-dark fw-semibold">$</span>
+                        <span id="pricingCount1" class="fs-1 text-dark fw-semibold" data-hs-toggle-switch-item-options="{
+                                 &quot;min&quot;: 29,
+                                 &quot;max&quot;: 19
+                               }">0</span>
+                        <span>/mo</span>
+                      </div>
+    
+                      <h3 class="card-title">Experience</h3>
+                      <p class="card-text">We will update ASAP</p>
+                    </div>
+    
+                    <div class="card-body d-flex justify-content-center py-0">
+                      <!-- List Checked -->
+                      <ul class="list-checked list-checked-soft-bg-primary">
+                        <!-- <li class="list-checked-item">1 user</li>
+                        <li class="list-checked-item">Front plan features</li>
+                        <li class="list-checked-item">1 app</li> -->
+                      </ul>
+                      <!-- End List Checked -->
+                    </div>
+    
+                    <div class="card-footer text-center">
+                      <div class="d-grid mb-2">
+                        <button type="button" class="btn btn-ghost-primary">Free forever</button>
+                      </div>
+                      <p class="card-text text-muted small">No card required</p>
+                    </div>
+                  </div>
+                  <!-- End Card -->
+                </div>
+                <!-- End Col -->
+                <div class="col-md mb-3 mb-md-0">
+                    
+                    <!-- Card -->
+                    <div class="card h-100 zi-1">
+                      <div class="card-header text-center">
+                        <div class="mb-2">
+                          <span class="fs-5 align-top text-dark fw-semibold">$</span>
+                          <span id="pricingCount1" class="fs-1 text-dark fw-semibold" data-hs-toggle-switch-item-options="{
+                                   &quot;min&quot;: 29,
+                                   &quot;max&quot;: 19
+                                 }">10</span>
+                          <span>/mo</span>
+                        </div>
+      
+                        <h3 class="card-title">Monthly</h3>
+                        <p class="card-text">We will update ASAP</p>
+                      </div>
+      
+                      <div class="card-body d-flex justify-content-center py-0">
+                        <!-- List Checked -->
+                        <ul class="list-checked list-checked-soft-bg-primary">
+                          <!-- <li class="list-checked-item">1 user</li>
+                          <li class="list-checked-item">Front plan features</li>
+                          <li class="list-checked-item">1 app</li> -->
+                        </ul>
+                        <!-- End List Checked -->
+                      </div>
+      
+                      <div class="card-footer text-center">
+                        <div class="d-grid mb-2">
+                          <a href="{% url 'membership:checkout' %}?membership=monthly"><button type="button" class="btn btn-ghost-primary">Start Now</button></a>
+                        </div>
+                        <!-- <p class="card-text text-muted small">No card required</p> -->
+                      </div>
+                    </div>
+                    <!-- End Card -->
+                  </div>
+                  <!-- End Col -->
+    
+                <div class="col-md mb-3 mb-md-0">
+                  <!-- Card -->
+                  <div class="card bg-primary h-100 zi-1">
+                    <div class="card-header text-center">
+                      <div class="text-white mb-2">
+                        <span class="fs-5 align-top fw-semibold">$</span>
+                        <span id="pricingCount2" class="fs-1 fw-semibold" data-hs-toggle-switch-item-options="{
+                                 &quot;min&quot;: 49,
+                                 &quot;max&quot;: 39
+                               }">100</span>
+                        <span>/an</span>
+                      </div>
+    
+                      <h3 class="card-title text-white">Yearly</h3>
+                      <p class="card-text text-white-70">Everything you need for a growing business</p>
+                    </div>
+    
+                    <div class="card-body d-flex justify-content-center py-0">
+                      <!-- List Checked -->
+                      <ul class="list-checked list-checked-soft-bg-light">
+                        <!-- <li class="list-checked-item text-white">3 users</li>
+                        <li class="list-checked-item text-white">Front plan features</li>
+                        <li class="list-checked-item text-white">3 apps</li>
+                        <li class="list-checked-item text-white">Product support</li> -->
+                      </ul>
+                      <!-- End List Checked -->
+                    </div>
+    
+                    <div class="card-footer text-center">
+                      <div class="d-grid mb-2">
+                      <a href="{% url 'membership:checkout' %}?membership=yearly"><button type="button" class="btn btn-light">Get start Now</button></a>  
+                      </div>
+                      <!-- <p class="card-text text-white-70 small">No card required</p> -->
+                    </div>
+                  </div>
+                  <!-- End Card -->
+                </div>
+                <!-- End Col -->
+    
+                <div class="col-md mb-3 mb-md-0">
+                  <!-- Card -->
+                  <div class="card h-100 zi-1">
+                    <div class="card-header text-center">
+                      <div class="mb-2">
+                        <!-- <span class="fs-5 align-top text-dark fw-semibold">$</span>
+                        <span id="pricingCount3" class="fs-1 text-dark fw-semibold" data-hs-toggle-switch-item-options="{
+                                 &quot;min&quot;: 69,
+                                 &quot;max&quot;: 59
+                               }">59</span>
+                        <span>/mo</span> -->
+                      </div>
+    
+                      <h3 class="card-title">Enterprise</h3>
+                      <p class="card-text">Advanced features for scaling your business</p>
+                    </div>
+    
+                    <div class="card-body d-flex justify-content-center py-0">
+                      <!-- List Checked -->
+                      <ul class="list-checked list-checked-soft-bg-primary">
+                        <!-- <li class="list-checked-item">Unlimited users</li>
+                        <li class="list-checked-item">Front plan features</li>
+                        <li class="list-checked-item">Unlimited apps</li>
+                        <li class="list-checked-item">Product support</li> -->
+                      </ul>
+                      <!-- End List Checked -->
+                    </div>
+    
+                    <div class="card-footer text-center">
+                      <div class="d-grid mb-2">
+                     <a href="{% url 'common:contactus' %}"><button type="button" class="btn btn-ghost-primary">Contact Us</button></a>   
+                      </div>
+                      <!-- <p class="card-text text-muted small">No card required</p> -->
+                    </div>
+                  </div>
+                  <!-- End Card -->
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+    
+              <!-- SVG Elements -->
+              <figure class="position-absolute bottom-0 start-0 mb-n7 ms-n7" style="width: 9rem;">
+                <svg viewBox="0 0 522 504" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path opacity="0.5" d="M332 504H510.4C516.8 504 522 498.8 522 492.4V314C522 209.1 436.9 124 332 124C227.1 124 142 209.1 142 314C142 418.9 227.1 504 332 504Z" fill="#00C9A7"></path>
+                  <path d="M190 380H11.6C5.2 380 0 374.8 0 368.4V190C0 85.1 85.1 0 190 0C294.9 0 380 85.1 380 190C380 294.9 294.9 380 190 380Z" fill="#377dff"></path>
+                </svg>
+              </figure>
+    
+         
+              <!-- End SVG Elements -->
+            </div>
+    
+
+          </div>
+          <!-- End Pricing -->
+        </div>
+
+    
+        <!-- Pricing Table -->
+        <div class="container pt-6">
+          <!-- Heading -->
+          <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+            <h2>Pick the plan that works best for you</h2>
+          </div>
+          <!-- End Heading -->
+    
+          <!-- Table -->
+          <div class="table-responsive-lg w-lg-75 mx-lg-auto">
+            <table class="table table-lg table-striped table-borderless table-nowrap table-vertical-border-striped">
+              <thead class="table-text-center">
+                <tr>
+                  <th scope="col" style="width: 40%;"></th>
+    
+                  <th scope="col" style="width: 20%;">
+                    <span class="d-block">Professional</span>
+                    <span class="d-block text-muted small">$19/mon</span>
+                  </th>
+    
+                  <th scope="col" style="width: 20%;">
+                    <span class="d-block">Team <span class="badge bg-warning text-dark rounded-pill ms-1">Hot</span></span>
+                    <span class="d-block text-muted small">$39/mon</span>
+                  </th>
+    
+                  <th scope="col" style="width: 20%;">
+                    <span class="d-block">Enterprise</span>
+                    <span class="d-block text-muted small">$59</span>
+                  </th>
+                </tr>
+              </thead>
+    
+              <tbody>
+                <tr>
+                  <th scope="row" class="text-dark">Cross-platform UI toolkit</th>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">14-days free trial</th>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">No user limit</th>
+                  <td></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">Long-term support</th>
+                  <td></td>
+                  <td></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">Email support</th>
+                  <td><span class="badge bg-soft-primary text-primary rounded-pill">Add-on available</span></td>
+                  <td></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">Developer tools</th>
+                  <td></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">Removal of Front branding</th>
+                  <td></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">Active maintenance &amp; support</th>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark">Data storage for 365 days</th>
+                  <td></td>
+                  <td><span class="badge bg-soft-primary text-primary rounded-pill">Add-on available</span></td>
+                  <td class="table-text-center"><i class="bi-check-circle text-success me-2"></i></td>
+                </tr>
+    
+                <tr>
+                  <th scope="row" class="text-dark"></th>
+                  <td><button type="button" class="btn btn-soft-dark btn-sm btn-transition">Choose plan</button></td>
+                  <td><button type="button" class="btn btn-soft-dark btn-sm btn-transition">Choose plan</button></td>
+                  <td><button type="button" class="btn btn-primary btn-sm btn-transition">Contact us</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End Table -->
+        </div>
+        <!-- End Pricing Table -->
+    
+        <!-- FAQ -->
+        <div class="container content-space-2 content-space-lg-3">
+          <!-- Heading -->
+          <div class="w-md-75 w-lg-50 text-center mx-lg-auto mb-5 mb-md-9">
+            <h2>Frequently Asked Questions</h2>
+          </div>
+          <!-- End Heading -->
+    
+          <div class="row justify-content-md-center">
+            <div class="col-sm-6 col-lg-5 mb-3 mb-md-5">
+              <h4>Can I cancel at anytime?</h4>
+              <p>Yes, you can cancel anytime no questions are asked while you cancel but we would highly appreciate if you will give us some feedback.</p>
+            </div>
+            <!-- End Col -->
+    
+            <div class="col-sm-6 col-lg-5 mb-3 mb-md-5">
+              <h4>My team has credits. How do we use them?</h4>
+              <p>Once your team signs up for a subscription plan. This is where we sit down, grab a cup of coffee and dial in the details.</p>
+            </div>
+            <!-- End Col -->
+    
+            <div class="col-sm-6 col-lg-5 mb-3 mb-md-5">
+              <h4>How does Front's pricing work?</h4>
+              <p>Our subscriptions are tiered. Understanding the task at hand and ironing out the wrinkles is key.</p>
+            </div>
+            <!-- End Col -->
+    
+            <div class="col-sm-6 col-lg-5 mb-3 mb-md-5">
+              <h4>How secure is Front?</h4>
+              <p>Protecting the data you trust to Front is our first priority. This part is really crucial in keeping the project in line to completion.</p>
+            </div>
+            <!-- End Col -->
+    
+            <div class="col-sm-6 col-lg-5 mb-3 mb-md-5">
+              <h4>Do you offer discounts?</h4>
+              <p>We've built in discounts at each tier for teams. The time has come to bring those ideas and plans to life.</p>
+            </div>
+            <!-- End Col -->
+    
+            <div class="col-sm-6 col-lg-5 mb-3 mb-md-5">
+              <h4>What is your refund policy?</h4>
+              <p>We offer refunds. We aim high at being focused on building relationships with our clients and community.</p>
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+        </div>
+        <!-- End FAQ -->
+    
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-6 card pt-4 pb-4" style="padding-left: 20px;padding-right: 20px; background-color: rgb(233, 233, 233);">
+            <h1 class="title">Accept invitation</h1>
+            <br>
+            <form method="post" action="." >
+                {% csrf_token %}
+
+                <div class="field">
+                    <label>Code (from e-mail)</label>
+
+                    <div class="control">
+                        <input type="text" name="code" id="id_code" class="form-control border-1">
+                    </div>
+                </div>
+                <br>
+                <div class="field">
+                    <div class="control">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-5"></div>
+    </div>
+</div>
+
+
+{% endblock %}

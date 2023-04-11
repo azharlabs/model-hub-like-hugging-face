@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container content-space-t-3 content-space-t-lg-5">
+    
+    <div class="w-lg-75 text-center mx-lg-auto">
+        <!-- Heading -->
+        <div class="mb-5 mb-md-10">
+            <h1 class="display-4">About Us</h1>
+            <p class="lead">tenison is an AI as an API development platform that helps data scientist to build and deploy their AI as an API and earn from that. Businesses of every size—from new startups to public companies can use our platform to build and manage their AI as an API.</p>
+
+            
+        </div>
+    </div>
+
+<div class="row pb-5" >
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <img src="{% static 'assets/svg/illustrations/oc-project-development.svg' %}" width="70%" alt="project-developemnt-tenison" >
+    </div>
+    <div class="col-md-6">
+        <div class="mb-5 mb-md-10">
+            <h1 class="display-4">ABCD for tenison</h1>
+            <p class="lead"><b>A</b>I for everyone. </p>
+            <p class="lead"><b>B</b>ring the data science deploying process, Easier for the data scientist and helping to make money out of it.  </p>
+            <p class="lead"><b>C</b>reating, the tool to manage data science projects as well as the customer in an elegant way.</p>
+            <p class="lead"><b>D</b>elivering powerful API as fast and as securely as possible. </p>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

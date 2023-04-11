@@ -1,0 +1,36 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #FFC106;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  }
+</style>
+<div class="container-lg" style="margin-top: 50px;">
+
+
+<div class="container-fluid" >
+    <div class="card p-5">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="id_paypal_email" class="pb-3">Your Paypal Email</label>
+            {{ payout_form.paypal_email }}
+            <br>
+            <button type="submit" class="btn btn-block btn-warning">Save</button>
+          </form>
+    </div>
+
+</div>
+</div>
+{% endblock %}

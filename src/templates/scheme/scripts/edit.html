@@ -1,0 +1,76 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<style>
+.editor-container {
+  width: 900px;
+  height: 540px;
+  margin: 20px auto;
+  position: relative;
+}
+
+#editor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 15px;
+}
+
+</style>
+<div class="container pt-5 ">
+    <h2>Edit:- {{scripts.script_name}}</h2>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data" class="pt-6">
+                {% csrf_token %}
+     
+                 
+                  <div class="mb-3">
+                    {{form.script_code}}
+                    <div class="editor-container">
+                        <div id="editor">
+                            {{script_code}}
+                        </div>
+                      </div>
+                        
+                    
+                   
+                  </div>
+                  <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+              </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<script>
+// let editor = document.querySelector("#editor");
+
+// ace.edit(editor, {
+//   theme: "ace/theme/cobalt",
+//   mode: "ace/mode/python",
+// });
+// editor.gotoLine(lineNumber);
+// editor.selection.getCursor();
+// var myCode = editor.getSession().getValue();
+// console.log(myCode);
+
+var editor = ace.edit('editor');
+        editor.session.setMode("ace/mode/python");
+        editor.setTheme("ace/theme/cobalt");
+        console.log(editor.getSession().getValue());
+
+    var input = $('#id_script_code');
+    input.val(editor.getSession().getValue());
+        editor.getSession().on("change", function () {
+            input.val(editor.getSession().getValue());
+    });
+  </script>
+{% endblock %}

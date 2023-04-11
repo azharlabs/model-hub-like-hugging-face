@@ -1,0 +1,38 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row pb-6 pt-6">
+
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+            {% if messages %}
+            <ul class="messages pb-5">
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <span class="fw-semi-bold">{{ message|safe }}</span> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+    
+                
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <h1>Edit Blog</h1>
+            <form  method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.media}}
+            
+            
+                {{form.as_p}}
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
+
+{% endblock %}

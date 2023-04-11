@@ -1,0 +1,240 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="row align-items-end mb-3">
+            <div class="col-sm mb-2 mb-sm-0">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-no-gutter">
+                  <li class="breadcrumb-item"><a class="breadcrumb-link" href="{% url 'accounts:my_profile' request.user|profile_pk %}">{{request.user.username|title}}</a></li>
+                  <li class="breadcrumb-item" >
+                    <a class="breadcrumb-link" href="{% url 'dashboard:teams:team_home' %}">Teams</a></li>
+                  
+                </ol>
+              </nav>
+  
+              <h1 class="page-header-title">Teams</h1>
+            </div>
+            <!-- End Col -->
+  
+            <div class="col-sm-auto">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareWithPeopleModal">
+                <i class="bi-plus me-1"></i> Add team
+              </button>
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+  
+          <!-- Nav -->
+          <!-- Nav -->
+          <div class="js-nav-scroller hs-nav-scroller-horizontal">
+            <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+              <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                <i class="bi-chevron-left"></i>
+              </a>
+            </span>
+  
+            <span class="hs-nav-scroller-arrow-next" style="display: none;">
+              <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                <i class="bi-chevron-right"></i>
+              </a>
+            </span>
+  
+            <ul class="nav nav-tabs page-header-tabs" id="projectsTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'dashboard:teams:team_home' %}">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="">Files</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="">Activity</a>
+              </li>
+             
+              <li class="nav-item">
+                <a class="nav-link " href="">Settings</a>
+              </li>
+            </ul>
+          </div>
+          <!-- End Nav -->
+        </div>
+        <!-- End Page Header -->
+  
+        <!-- Card -->
+        <div class="card">
+          <!-- Header -->
+          <div class="card-header card-header-content-md-between">
+            <div class="mb-2 mb-md-0">
+              
+            </div>
+            <!-- End Col -->
+  
+            <div class="d-grid d-sm-flex align-items-sm-center gap-2">
+              <!-- Datatable Info -->
+              <div id="datatableCounterInfo" >
+                <div class="d-flex align-items-center">
+                  
+  
+                  <button class="btn btn-outline-danger btn-sm" form="delete" type="submit">
+                    
+                    <i class="bi-trash"></i> Delete
+                  </button>
+                </div>
+              </div>
+              <!-- End Datatable Info -->
+  
+             
+            </div>
+          </div>
+          <!-- End Header -->
+  
+         
+            <form action="{% url 'dashboard:teams:delete' %}" method="POST" id="delete" enctype="multipart/form-data">
+              {% csrf_token %}
+            </form>
+           
+  
+          <!-- Table -->
+          <div class="table-responsive p-4" >
+            <table id="datatable" {% if not team_list %} style="height: 500px;" {% endif %} class="table table-borderless table-thead-bordered card-table pt-3">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="table-column-pe-0">
+                    <!-- <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="datatableCheckAll" style="border: 1px solid rgb(24, 24, 24);">
+                      <label class="form-check-label" for="datatableCheckAll"></label>
+                    </div> -->
+                  </th>
+                  <th scope="col" class="table-column-ps-0">Team</th>
+                  <th scope="col" style="min-width: 20rem;">Description</th>
+                 
+                  <th scope="col">Members</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                {% for row in team_list %}
+                <tr>
+                  <td class="table-column-pe-0">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="id" value="{{row.pk}}" form="delete" id="teamDataCheck1" style="border: 1px solid rgb(24, 24, 24);">
+                      <label class="form-check-label" for="teamDataCheck1"></label>
+                    </div>
+                  </td>
+                  <td class="table-column-ps-0"><a href="{% url 'dashboard:teams:team_detail' row.pk %}">#{{row.title}}</a></td>
+                  <td>{{row.description}}</td>
+                  
+                  <td>
+                    <a href="#">{{row.members.all|query_to_count }} members</a>
+                    
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-white btn-sm" id="teamsDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                        More <i class="bi-chevron-down ms-1"></i>
+                      </button>
+  
+                      <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end" aria-labelledby="teamsDropdown1">
+                        <a class="dropdown-item" href="#">Rename team</a>
+                        <a class="dropdown-item" href="#">Add to favorites</a>
+                        <a class="dropdown-item" href="#">Archive team</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+          <!-- End Table -->
+        
+  
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Content -->
+  <!-- Share with people Modal -->
+  <div class="modal fade" id="shareWithPeopleModal" tabindex="-1" aria-labelledby="shareWithPeopleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="shareWithPeopleModalLabel">Add Team</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- Form -->
+          <form method="post">
+            {% csrf_token %}
+           
+              <!-- Form -->
+              <div class="mb-3">
+                <label for="team_title" class="form-label">Team name</label>
+
+                <input type="text" class="form-control form-control-hover-light" id="team_title" >
+              </div>
+              <!-- End Form -->
+
+              <!-- Form -->
+              <div class="mb-3">
+                <label for="team_description" class="form-label">Description</label>
+                <textarea  class="form-control form-control-hover-light" id="team_description" cols="30" rows="5"></textarea>
+
+                
+              </div>
+              <!-- End Form -->
+
+              <!-- Form -->
+           
+          
+          </form>
+          <!-- End Form Switch -->
+        </div>
+        <!-- End Body -->
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <div class="row align-items-center flex-grow-1 mx-n2">
+            <div class="col-sm-9 mb-2 mb-sm-0">
+              
+            </div>
+            <!-- End Col -->
+
+            <div class="col-sm-3 text-sm-end">
+              <button class="btn btn-primary" id="team-add-btn">Save</button>
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+        </div>
+        <!-- End Footer -->
+      </div>
+    </div>
+  </div>
+  <!-- End Share with people Modal -->
+ 
+
+
+  <script>
+    // INITIALIZATION OF DATATABLES
+  // =======================================================
+  
+    $(document).ready( function () {
+  $('#datatable').DataTable({
+  
+    pagingType: 'full_numbers',
+  });
+  } );
+  </script>
+{% endblock %}

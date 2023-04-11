@@ -1,0 +1,245 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+    <!-- Content -->
+    <div class="content container-fluid">
+            <!-- Page Header -->
+      <div class="page-header">
+        <div class="d-flex mb-3">
+          <!-- Avatar -->
+          <div class="flex-shrink-0">
+            <div class="avatar avatar-lg avatar-4x3 avatar-soft-primary avatar-centered">
+              {% if product.image %}
+              <img class="avatar-img" src="{{ product.image.url }}" alt="Image Description">
+              {% else %}
+              <span class="avatar-initials">{{product.product_name|first}}</span>
+              {% endif %}
+            </div>
+          </div>
+          <!-- End Avatar -->
+
+          <div class="flex-grow-1 ms-4">
+            <div class="row">
+              <div class="col-lg mb-3 mb-lg-0">
+                <h1 class="page-header-title">{{product.product_name}}</h1>
+     
+                <div class="row align-items-center">
+                
+                  <!-- End Col -->
+                  {% if product.created_date %}
+                  <div class="col-auto">
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">Created date: {{product.created_date}}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if product.author %}
+                  <div class="col-auto">
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">Owner: <a href="{% url 'accounts:my_profile' product.author|profile_pk %}">{{product.author}}</a> </div>
+                    </div>
+                  </div>
+                  {% endif %}
+          
+               
+                  <!-- End Col -->
+                </div>
+                <hr>
+                <p>{{product.description|title}}</p>
+                <!-- End Row -->
+              </div>
+              <!-- End Col -->
+
+              <div class="col-lg-auto">
+              
+
+                <div class="d-flex">
+                 
+                  
+
+                  <a class="btn btn-primary btn-icon rounded-circle" href="{% url 'dashboard:product:product_edit' product.pk%}">
+                    <i class="bi-pencil-fill"></i>
+                  </a>
+                  <a class="btn btn-primary btn-icon rounded-circle" style="margin-left: 10px;" target="_blank" href="{% url 'dashboard:product:global_product_detail' product.pk%}">
+                    <i class="bi bi-eye-fill"></i>
+                  </a>
+                 
+                  
+                </div>
+              </div>
+              <!-- End Col -->
+
+            </div>
+            <!-- End Row -->
+          
+              
+           
+          </div>
+        </div>
+        <!-- End Media -->
+        
+        {% if messages %}
+        <ul class="messages ">
+            {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <span class="fw-semi-bold">{{ message|safe }}</span> 
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- Nav -->
+        <!-- Nav -->
+        <div class="js-nav-scroller hs-nav-scroller-horizontal">
+          <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+            <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+              <i class="bi-chevron-left"></i>
+            </a>
+          </span>
+
+          <span class="hs-nav-scroller-arrow-next" style="display: none;">
+            <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+              <i class="bi-chevron-right"></i>
+            </a>
+          </span>
+
+          
+        </div>
+        <!-- End Nav -->
+      </div>
+      <!-- End Page Header -->
+      <div class="row pb-6">
+        <div class="col-md-5">
+          <!-- Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-header-title">End Point</h3>
+              <small class="text-muted">2 days ago</small>
+            </div>
+            <div class="card-body">
+              <!-- <h3 class="card-title">Special title treatment</h3>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+              <a href="{% url 'dashboard:scripts:script_add' product.pk %}" class="btn btn-primary">View Endpoint Script</a>
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
+        <ddiv class="col-md-2"></ddiv>
+        <div class="col-md-5">
+          <!-- Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-header-title">Model</h3>
+              <small class="text-muted">2 days ago</small>
+            </div>
+            <div class="card-body">
+              <!-- <h3 class="card-title">Special title treatment</h3>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+              {% if model_len_status == True %}
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadmodelModal">Upload Model (*.pkl)</a>
+              {% else %}
+              <a href="{% url 'dashboard:model:model_detail' product.pk %}" class="btn btn-primary">View Model </a>
+              {% endif %}
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
+      </div>
+
+    </div>
+    <div class="modal fade" id="shareWithPeopleModal" tabindex="-1" aria-labelledby="shareWithPeopleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="shareWithPeopleModalLabel">Add Product</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <!-- Body -->
+          <div class="modal-body">
+            <!-- Form -->
+            <form method="post" id="file-add-form" enctype="multipart/form-data">
+              {% csrf_token %}
+             
+                <!-- Form -->
+                <div class="mb-3">
+                  <label for="product_title" class="form-label">Product name</label>
+  
+                  <input type="text" class="form-control form-control-hover-light" id="product_title" >
+                  <input type="text" class="form-control form-control-hover-light" id="project" value="{{project}}" hidden >
+                  </div>
+                <!-- End Form -->
+  
+                <!-- Form -->
+                <div class="mb-3">
+                  <label for="product_description" class="form-label">Description</label>
+                  <textarea  class="form-control form-control-hover-light" id="product_description" cols="30" rows="5"></textarea>
+  
+                  
+                </div>
+                <!-- End Form -->
+  
+                <!-- Form -->
+             
+            
+            </form>
+            <!-- End Form Switch -->
+          </div>
+          <!-- End Body -->
+  
+          <!-- Footer -->
+          <div class="modal-footer">
+            <div class="row align-items-center flex-grow-1 mx-n2">
+              <div class="col-sm-9 mb-2 mb-sm-0">
+                
+              </div>
+              <!-- End Col -->
+  
+              <div class="col-sm-3 text-sm-end">
+                <button class="btn btn-primary" form="file-add-form" type='submit' >Save</button>
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Footer -->
+        </div>
+      </div>
+    </div>
+
+
+    
+
+        <!-- Upload model Modal -->
+        <div class="modal fade" id="uploadmodelModal" tabindex="-1" aria-labelledby="uploadFilesModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="uploadFilesModalLabel">Add Model</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+      
+              <!-- Body -->
+              <div class="modal-body">
+                <!-- Dropzone -->
+                <form method='POST' action="{% url 'dashboard:model:model_add' product.pk %}" id="uploadmodelModalForm" class="js-dropzone dz-dropzone dz-dropzone-card" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{model_form.file_name}}
+                </form>
+                <!-- End Dropzone -->
+              </div>
+              <!-- End Body -->
+      
+              <!-- Footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="submit" class="btn btn-primary" form="uploadmodelModalForm">Upload</button>
+              </div>
+              <!-- End Footer -->
+            </div>
+          </div>
+        </div>
+{% endblock %}

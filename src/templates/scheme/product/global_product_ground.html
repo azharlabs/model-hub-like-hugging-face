@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+
+<div class="content container-lg" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col-sm-10">
+            <a style="margin-left: 10px;" href="{% url 'dashboard:product:global_product_detail' product.pk%}">
+                <h2>{{product.product_name}}</h2>
+              </a>   
+        </div>
+        <hr>
+        
+    </div>
+    <div class="row">
+   
+        <div class="col-sm-6">
+            <form action="{% url 'dashboard:product:product_play_ground' product.pk%}" {% if submit %} method="post" {% endif %}enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for i in fields %}
+
+                <div class="mb-3">
+                    <label class="form-label" for="exampleFormControlInput1" >{{i.field_name}}</label>
+                    <input type="text" class="form-control" name="{{i.field_name}}">
+                    <p>input type : {{i.field_type}}</p>
+                    <p>**{{i.description}}**</p>
+                  </div>
+
+                {% endfor %}
+                {% if submit %}
+                <button type="submit" class="btn btn-primary">submit</button>
+                {% else %}
+
+                <h4>
+                    Your month'y limit for this product is complete please try some days later
+                </h4>
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <h3>Output</h3>
+            {% if content %}
+            <div class="card" style="height: 600px; background-color: rgb(237, 237, 237); overflow: scroll;">
+                <div class="row p-6">
+                    {{content}}
+                </div>
+                
+            </div>
+            {% else %}
+            <div class="card " style="height: 300px; background-color: rgb(237, 237, 237);">
+              
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

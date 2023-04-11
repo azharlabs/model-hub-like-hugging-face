@@ -1,0 +1,395 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<div class="container-lg" style="margin-top: 100px;">
+  <!-- Breadcrumb -->
+  <div class="border-top border-bottom">
+    <div class="container py-3">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a href="{% url 'dashboard:product:product_home' %}">Produts</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{product.product_name}} Overview</li>
+        </ol>
+      </nav>
+      <!-- End Breadcrumb -->
+    </div>
+  </div>
+  <!-- End Breadcrumb -->
+
+  <!-- Content -->
+  <div class="container content-space-t-2 content-space-b-lg-2">
+    <div class="row">
+      <div class="col-md-4 col-lg-3 mb-9 mb-md-0">
+        <div class="pe-lg-2">
+          <div class="text-center mb-4">
+            {% if product.profile_pic and product.profile_pic != '1' %}
+            <img id="editAvatarImgModal" class="avatar avatar-xl avatar-4x3" src="{{product.profile_pic.url}}" alt="Image Description">
+            {% else %}
+            <span class="avatar-initials">{{product.product_name|first}}</span>
+            {% endif %}
+          
+          </div>
+
+          <div class="d-grid mb-7">
+            <a class="btn btn-sm btn-block btn-primary transition-3d-hover" href="{% url 'api:api_home' %}">Use now</a>
+          </div>
+
+          <div class="mb-7">
+            <h1 class="h4">Categories</h1>
+            {% for tag in product.tags.all %}
+            <a class="btn btn-soft-secondary btn-xs me-1 mb-2" href="{% url 'dashboard:product:product_tag' tag.slug %}">{{tag.name}}</a>
+           
+                <!-- {% if not forloop.last %}, {% endif %} -->
+            {% endfor %}
+
+            
+
+          </div>
+
+          <div class="d-none d-md-block mb-7">
+            <h4>Developer</h4>
+
+            <a class="d-flex align-items-center" href="{% url 'accounts:my_profile' developer|profile_pk%}">
+              
+              <div class="flex-grow-1 ms-2">
+                <span class="link link-secondary">{{developer}}</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="d-none d-md-block mb-7">
+            <h4>Developer links</h4>
+
+            <!-- List Pointer -->
+            <ul class="list-unstyled list-pointer">
+              <li class="list-pointer-item">
+                <a class="link link-secondary" href="{% url 'accounts:my_profile' developer|profile_pk %} ">Support</a>
+              </li>
+             
+              <li class="list-pointer-item">
+                <a class="link link-secondary" href="{% url 'common:privacy'%}">Privacy Policy</a>
+              </li>
+            </ul>
+            <!-- End List Pointer -->
+          </div>
+
+          <a class="link-sm link-secondary" href="{% url 'common:contactus' %}">
+            <i class="bi-flag me-2"></i> Report abuse
+          </a>
+        </div>
+      </div>
+      <!-- End Col -->
+
+      <div class="col-md-8 col-lg-9 column-divider-md">
+        <div class="ps-lg-2">
+          <div class="row">
+            <div class="col-sm-10">
+              <div class="mb-5">
+                <h2>{{product.product_name}} </h2>
+              </div>
+              <div class="mb-5">
+                <span>Created at: {{product.updated_date|date:"M d, Y"}}</span>
+              </div>
+              
+            </div>
+
+            <div class="col-sm-2">
+              <a href="{% url 'dashboard:product:product_play_ground' product.pk%}" target="_blank"><button class="btn btn-primary">Try {{product.product_name}}</button></a>
+            </div>
+          </div>
+          
+          
+
+          <p>{{product.description}}</p>
+          <hr>
+          <pre>
+            <code>
+import requests
+
+# API endpoint URL
+url = "http://{{request.get_host}}/endpoint/"
+
+# Data to send in the GET request
+data = {
+    "api": "api-key",
+    "product": "{{product.product_name}}",
+    'fields': field_value
+}
+
+# Send the GET request
+response = requests.get(url, params=data)
+
+# Print the response status code
+print(response.json())
+            </code>
+          </pre>
+
+          <!-- Nav Scroller -->
+          <div class="js-nav-scroller hs-nav-scroller-horizontal">
+            <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+              <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                <i class="bi-chevron-left"></i>
+              </a>
+            </span>
+
+            <span class="hs-nav-scroller-arrow-next" style="display: none;">
+              <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                <i class="bi-chevron-right"></i>
+              </a>
+            </span>
+
+            <!-- Nav -->
+            <ul class="nav nav-segment nav-fill mb-7" id="featuresTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="#featuresOne" id="featuresOne-tab" data-bs-toggle="tab" data-bs-target="#featuresOne" role="tab" aria-controls="featuresOne" aria-selected="true" style="min-width: 7rem;">Manual</a>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#featuresTwo" id="featuresTwo-tab" data-bs-toggle="tab" data-bs-target="#featuresTwo" role="tab" aria-controls="featuresTwo" aria-selected="false" style="min-width: 7rem;" tabindex="-1">Review</a>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#featuresThree" id="featuresThree-tab" data-bs-toggle="tab" data-bs-target="#featuresThree" role="tab" aria-controls="featuresThree" aria-selected="false" style="min-width: 7rem;" tabindex="-1">Pricing</a>
+              </li>
+            </ul>
+            <!-- End Nav -->
+          </div>
+          <!-- End Nav Scroller -->
+
+          <!-- Tab Content -->
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade active show" id="featuresOne" role="tabpanel" aria-labelledby="featuresOne-tab">
+              <p>{{product.manual|safe}}</p>
+
+              
+            </div>
+
+            <div class="tab-pane fade" id="featuresTwo" role="tabpanel" aria-labelledby="featuresTwo-tab">
+              <div class="row justify-content-sm-between align-items-sm-center border-bottom pb-3 mb-4">
+                <div class="col-sm mb-2 mb-sm-0">
+                  <h4 class="mb-0">Reviews <small class="text-muted ms-1">(156)</small></h4>
+                </div>
+                <!-- End Col -->
+
+         
+              </div>
+              <!-- End Row -->
+              <div class="container-lg mb-6">
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ comment_form.body }} 
+                  <br>
+                  <button type="submit" hx-post="{% url 'dashboard:product:create_comments' product.pk %}" hx-target="#product_comment_list" class="btn btn-primary" id="product-btn-submit">Submit</button>
+           
+              </form>
+              
+              <div id="product_comment_list">
+                {% include 'scheme/product/comments/comment_list.html' %}
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="tab-pane fade" id="featuresThree" role="tabpanel" aria-labelledby="featuresThree-tab">
+             
+
+              <div class="card card-lg mb-3 mb-lg-5">
+                <!-- Body -->
+                <div class="card-body text-center">
+                  <div class="mb-4">
+                    <img class="avatar avatar-xl avatar-4x3" src="{% static 'assets/svg/illustrations/oc-growing.svg' %}" alt="Image Description" data-hs-theme-appearance="default">
+                
+                  </div>
+  
+                  <div class="mb-3">
+                    <h3>Price Per Request</h3>
+                    <p>Product : <b>{{product.product_name}}</b></p>
+                    <p>Price <b>{{product.price_per_request}}</b></p>
+                    <p>Start use today</p>
+                  </div>
+  
+                  <a class="btn btn-primary" href="{% url 'api:api_home' %}">Crreate API key</a>
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Card -->
+            </div>
+          </div>
+          <!-- End Tab Content -->
+        </div>
+      </div>
+      <!-- End Col -->
+    </div>
+    <!-- End Row -->
+  </div>
+  <!-- End Content -->
+{% if related_app %}
+  <!-- Card Grid -->
+  <div class="container content-space-2">
+    <!-- Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="mb-0">Related apps</h3>
+      <a class="link" href="#">View all <i class="bi-chevron-right small ms-1"></i></a>
+    </div>
+    <!-- End Heading -->
+
+    <div class="row gx-3 mx-n2">
+      <div class="col-sm-6 col-md-4 mb-3">
+        <!-- Card -->
+        <div class="card card-bordered card-transition shadow-none h-100">
+          <a class="card-body" href="../demo-app-marketplace/app-overview.html">
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img class="avatar avatar-xs" src="../assets/svg/brands/spotify-icon.svg" alt="Logo">
+              </div>
+
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title mb-0">Spotify</h5>
+                  <img class="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Image Description" title="Top Vendor">
+                </div>
+                <p class="card-text text-body small">Entertainment</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-sm-6 col-md-4 mb-3">
+        <!-- Card -->
+        <div class="card card-bordered card-transition shadow-none h-100">
+          <a class="card-body" href="../demo-app-marketplace/app-overview.html">
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img class="avatar avatar-xs" src="../assets/svg/brands/slack-icon.svg" alt="Logo">
+              </div>
+
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title mb-0">Slack</h5>
+                </div>
+                <p class="card-text text-body small">Communication</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-sm-6 col-md-4 mb-3">
+        <!-- Card -->
+        <div class="card card-bordered card-transition shadow-none h-100">
+          <a class="card-body" href="../demo-app-marketplace/app-overview.html">
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img class="avatar avatar-xs" src="../assets/svg/brands/google-drive-icon.svg" alt="Logo">
+              </div>
+
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title mb-0">Google Drive</h5>
+                  <img class="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Image Description" title="Top Vendor">
+                </div>
+                <p class="card-text text-body small">File management</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-sm-6 col-md-4 mb-3">
+        <!-- Card -->
+        <div class="card card-bordered card-transition shadow-none h-100">
+          <a class="card-body" href="../demo-app-marketplace/app-overview.html">
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img class="avatar avatar-xs" src="../assets/svg/brands/atlassian-icon.svg" alt="Logo">
+              </div>
+
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title mb-0">Atlassian</h5>
+                </div>
+                <p class="card-text text-body small">Developer tools</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-sm-6 col-md-4 mb-3">
+        <!-- Card -->
+        <div class="card card-bordered card-transition shadow-none h-100">
+          <a class="card-body" href="../demo-app-marketplace/app-overview.html">
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img class="avatar avatar-xs" src="../assets/svg/brands/behance-icon.svg" alt="Logo">
+              </div>
+
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title mb-0">Behance</h5>
+                  <img class="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Image Description" title="Top Vendor">
+                </div>
+                <p class="card-text text-body small">Design tools</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-sm-6 col-md-4 mb-3">
+        <!-- Card -->
+        <div class="card card-bordered card-transition shadow-none h-100">
+          <a class="card-body" href="../demo-app-marketplace/app-overview.html">
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img class="avatar avatar-xs" src="../assets/svg/brands/invision-studio-icon.svg" alt="Logo">
+              </div>
+
+              <div class="flex-grow-1 ms-3">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title mb-0">InVision Studio</h5>
+                </div>
+                <p class="card-text text-body small">Design tools</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+    </div>
+    <!-- End Row -->
+  </div>
+  <!-- End Card Grid -->
+  {% endif %}
+</div>
+<script>
+  function handleReply(response_id) {
+   const reply_form_container = document.querySelector(`#reply-form-container-${response_id}`)
+   if (reply_form_container) {
+       reply_form_container.style.display = 'block';
+   }
+  }
+  function handleCancel(response_id) {
+   const reply_form_container = document.querySelector(`#reply-form-container-${response_id}`)
+   if (reply_form_container) {
+       reply_form_container.style.display = 'none';
+   }
+  }
+  </script>
+{% endblock %}

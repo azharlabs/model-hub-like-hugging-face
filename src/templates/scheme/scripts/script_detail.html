@@ -1,0 +1,198 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+
+<style>
+  .editor-container {
+    width: 900px;
+    height: 540px;
+    margin: 20px auto;
+    position: relative;
+  }
+  
+  #editor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
+  }
+  
+  </style>
+<div class="container-fluid pt-5">
+  <h4 class="text-danger">Please make sure the final excute function should be "endpoint". output sholud ".json" format</h4>
+  <h5 class="text-danger">Use "model" varaiable for import the model</h5>
+  <pre>
+    <code>
+      def endpoint(a, b):
+        model = model
+        return {'sum':a+b}
+    </code>
+  </pre>
+  
+                <!-- Page Header -->
+                <div class="page-header" style="padding: 0px;margin: 0px; border: 0px;">
+                    <div class="d-flex mb-3">
+
+            
+                      <div class="flex-grow-1 ms-4">
+                        <div class="row">
+                          <div class="col-lg mb-3 mb-lg-0">
+                           <a href="{% url 'dashboard:product:product_detail' scripts.product.pk %}"><h1 class="page-header-title">{{scripts.product}}</h1></a> 
+                 
+                            <div class="row align-items-center">
+                            
+                              <!-- End Col -->
+                              {% if scripts.created_date %}
+                              <div class="col-auto">
+                                <div class="row align-items-center g-0">
+                                  <div class="col-auto">Created date: {{scripts.created_date}}</div>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if scripts.author %}
+                              <div class="col-auto">
+                                <div class="row align-items-center g-0">
+                                  <div class="col-auto">Owner: <a href="{% url 'accounts:my_profile' scripts.author|profile_pk %}">{{scripts.author}}</a></div>
+                                </div>
+                              </div>
+                              {% endif %}
+                      
+                           
+                              <!-- End Col -->
+                            </div>
+                            <hr>
+                            
+                            <!-- End Row -->
+                          </div>
+                          <!-- End Col -->
+            
+                          <div class="col-lg-auto">
+                          
+            
+                            <div class="d-flex">
+                             
+                              
+            
+                              <a class="btn btn-primary btn-icon rounded-circle" style="margin-right: 10px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" href="{% url 'dashboard:scripts:script_edit' scripts.pk %}">
+                                <i class="bi-pencil-fill"></i>
+                              </a>
+                              <a class="btn btn-primary btn-icon rounded-circle" style="margin-right: 10px;"  data-bs-toggle="offcanvas" data-bs-target="#addFields" aria-controls="addFields" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Fields" href="#">
+                                <i class="bi bi-card-checklist"></i>
+                              </a>
+                              <a class="btn btn-primary btn-icon rounded-circle" data-bs-toggle="offcanvas" data-bs-target="#addComments" aria-controls="addComments" data-bs-toggle="tooltip" data-bs-placement="top" title="Comments"   href="#">
+                                <i class="bi bi-chat-dots-fill"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <!-- End Col -->
+            
+                        </div>
+                        <!-- End Row -->
+                      
+                          
+                       
+                      </div>
+                    </div>
+                    <!-- End Media -->
+                    {% if messages %}
+                    <ul class="messages ">
+                        {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <span class="fw-semi-bold">{{ message }}</span> 
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+            
+                        
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <!-- Nav -->
+                    <!-- Nav -->
+      
+                    <!-- End Nav -->
+                  </div>
+                  <!-- End Page Header -->
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-9">
+          <div class="editor-container">
+            <div id="editor">
+              {{contents}}
+            </div>
+          </div>
+                  
+    
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addComments" aria-labelledby="addCommentsLabel">
+  <div class="offcanvas-header">
+    <h5 id="addCommentsLabel">Comments</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="container-lg mb-6">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ comment_form.body }} 
+        <br>
+        <button type="submit" hx-post="{% url 'dashboard:scripts:create_comments' scripts.pk %}" hx-target="#comment_list" class="btn btn-primary">Submit</button>
+    </form>
+    
+    <div id="comment_list">
+      {% include 'scheme/scripts/comment_list.html' %}
+    </div>
+    </div>
+  </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addFields" aria-labelledby="addFieldsLabel">
+  <div class="offcanvas-header">
+    <h5 id="addFieldsLabel">Fields</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ field_form.as_p }}
+      <button type="submit" hx-post="{% url 'dashboard:fields:create_fields' scripts.pk %}" hx-target="#field_list" class="btn btn-primary">Submit</button>
+  </form>
+
+  <br>
+  <div id="field_list">
+    {% include 'scheme/fields/list.html' %}
+  </div>
+
+  </div>
+</div>
+<script>
+function handleReply(response_id) {
+ const reply_form_container = document.querySelector(`#reply-form-container-${response_id}`)
+ if (reply_form_container) {
+     reply_form_container.style.display = 'block';
+ }
+}
+function handleCancel(response_id) {
+ const reply_form_container = document.querySelector(`#reply-form-container-${response_id}`)
+ if (reply_form_container) {
+     reply_form_container.style.display = 'none';
+ }
+}
+</script>
+<script>
+  let editor = document.querySelector("#editor");
+  
+  ace.edit(editor, {
+    theme: "ace/theme/cobalt",
+    mode: "ace/mode/python",
+  });
+  editor.gotoLine(lineNumber);
+
+  editor.setReadOnly(true);
+    </script>
+{% endblock %}

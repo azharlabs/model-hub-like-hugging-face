@@ -1,0 +1,652 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<div>
+    <!-- Content -->
+    <div class="content container-fluid">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="row align-items-center">
+          <div class="col">
+            <h1 class="page-header-title">Dashboard</h1>
+          </div>
+          <!-- End Col -->
+
+        
+        </div>
+        <!-- End Row -->
+      </div>
+      <!-- End Page Header -->
+
+      <!-- Stats -->
+      <div class="row">
+        <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+          <!-- Card -->
+          <a class="card card-hover-shadow h-100" href="#">
+            <div class="card-body">
+              <h6 class="card-subtitle">Total Requests</h6>
+
+              <div class="row align-items-center gx-2 mb-1 mt-4">
+                <div class="col">
+                  <h2 class="card-title text-inherit">{{total_request}}</h2>
+                </div>
+                <!-- End Col -->
+
+             
+              </div>
+              <!-- End Row -->
+
+     
+            </div>
+          </a>
+          <!-- End Card -->
+        </div>
+
+        <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+          <!-- Card -->
+          <a class="card card-hover-shadow h-100" href="#">
+            <div class="card-body">
+              <h6 class="card-subtitle">Total Products</h6>
+
+              <div class="row align-items-center gx-2 mb-1 mt-4">
+                <div class="col">
+                  <h2 class="card-title text-inherit">{{total_products}}</h2>
+                </div>
+                <!-- End Col -->
+
+             
+              </div>
+              <!-- End Row -->
+
+     
+            </div>
+          </a>
+          <!-- End Card -->
+        </div>
+
+        <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+          <!-- Card -->
+          <a class="card card-hover-shadow h-100" href="#">
+            <div class="card-body">
+              <h6 class="card-subtitle">Total Click on Products</h6>
+
+              <div class="row align-items-center gx-2 mb-1 mt-4">
+                <div class="col">
+                  <h2 class="card-title text-inherit">{{product_clicked}}</h2>
+                </div>
+                <!-- End Col -->
+
+             
+              </div>
+              <!-- End Row -->
+
+     
+            </div>
+          </a>
+          <!-- End Card -->
+        </div>
+
+        <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+          <!-- Card -->
+          <a class="card card-hover-shadow h-100" href="#">
+            <div class="card-body">
+              <h6 class="card-subtitle">Earning of the Month</h6>
+
+              <div class="row align-items-center gx-2 mb-1 mt-4">
+                <div class="col">
+                  <h2 class="card-title text-inherit">{{earning|floatformat:3}}</h2>
+                </div>
+                <!-- End Col -->
+
+             
+              </div>
+              <!-- End Row -->
+
+     
+            </div>
+          </a>
+          <!-- End Card -->
+        </div>
+      </div>
+      <!-- End Stats -->
+
+      <div class="row">
+        <div class="col-lg-5 mb-3 mb-lg-5">
+          <!-- Card -->
+          <div class="card h-100">
+            <!-- Header -->
+            <div class="card-header card-header-content-between">
+              <h4 class="card-header-title">Product that are not Indexed</h4>
+
+             
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+              <p>This are the products that are not indexed. Please review that products and enable the index, so the product will appear in the marketplace.</p>
+
+              <ul class="list-group list-group-flush list-group-no-gutters">
+                <li class="list-group-item">
+                  <h5 class="card-title">Products that are not Indexed:</h5>
+                </li>
+
+                {% for product in not_indexed %}
+
+                <!-- List Group Item -->
+                <li class="list-group-item">
+                  <div class="d-flex">
+                    
+                    <div class="flex-grow-1 ms-3">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <h5 class="mb-0">{{product.product_name}}</h5>
+                          <span class="d-block fs-6 text-body">{{product.project}}</span>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-auto">
+                          <a class="btn btn-primary btn-sm" href="{% url 'dashboard:product:product_edit' product.pk%}" title="Launch importer" target="_blank">
+                             <span class="d-none d-sm-inline-block">Action</span>
+                            <i class="bi-box-arrow-up-right ms-1"></i>
+                          </a>
+                        </div>
+                        <!-- End Col -->
+                      </div>
+                      <!-- End Row -->
+                    </div>
+                  </div>
+                </li>
+                <!-- End List Group Item -->
+                {% endfor %}
+
+
+                <!-- <li class="list-group-item"><span class="small text-muted">Or you can <a class="link" href="#">sync data to Front Dashboard</a> to ensure your data is always up-to-date.</span></li> -->
+              </ul>
+            </div>
+            <!-- End Body -->
+          </div>
+          <!-- End Card -->
+        </div>
+        <!-- End Col -->
+
+        <div class="col-lg-7 mb-3 mb-lg-5">
+          <!-- Card -->
+          <div class="card h-100">
+            <!-- Header -->
+            <div class="card-header card-header-content-sm-between">
+              <h4 class="card-header-title mb-2 mb-sm-0">Last 30 days earnings</h4>
+
+              
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+              <div class="row mb-4">
+                <canvas id="line-chart"></canvas>
+
+                <script>
+                  var ctx = document.getElementById('line-chart').getContext('2d');
+                  var labels = JSON.parse('{{lost30|tojson|safe}}');
+                  var datas = JSON.parse('{{lost30_value|tojson|safe}}');
+             
+                  console.log(labels);
+                  console.log(datas)
+          
+                  
+                  var chart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'My earnings ',
+                        data: datas,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                  }
+                  });
+                </script>
+
+              </div>
+              <!-- End Row -->
+
+              
+            </div>
+            <!-- End Body -->
+          </div>
+          <!-- End Card -->
+        </div>
+        <!-- End Col -->
+      </div>
+      <!-- End Row -->
+      <div class="row mb-5">
+        <!-- Card -->
+        <div class="card">
+          <!-- Header -->
+          <div class="card-header card-header-content-md-between">
+            <div class="mb-2 mb-md-0">
+              
+            </div>
+            <!-- End Col -->
+  
+            <div class="d-grid d-sm-flex align-items-sm-center gap-2">
+              <!-- Datatable Info -->
+              <div id="datatableCounterInfo" >
+                <div class="d-flex align-items-center">
+                  
+  
+                  <a class="btn btn-outline-danger btn-sm" href="javascript:;">
+                    <i class="bi-trash"></i> Delete
+                  </a>
+                </div>
+              </div>
+              <a class="btn btn-outline-primary btn-sm" href="javascript:;" data-bs-toggle="modal" data-bs-target="#shareWithPeopleModal">
+                <i class="bi-person-lines-fill"></i> Invite User
+              </a>
+              <!-- End Datatable Info -->
+  
+              <!-- Filter Collapse Trigger -->
+              <a class="btn btn-white dropdown-toggle" data-bs-toggle="collapse" href="#filterSearchCollapse" role="button" aria-expanded="false" aria-controls="filterSearchCollapse">
+                <i class="bi-funnel me-1"></i> Filters
+              </a>
+              <!-- End Filter Collapse Trigger -->
+            </div>
+          </div>
+          <!-- End Header -->
+  
+          <!-- Filter Search Collapse -->
+          <div class="collapse" id="filterSearchCollapse">
+            <div class="card-body">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-sm-12 col-lg-6">
+                    <!-- Form -->
+                    <div class="mb-4">
+                      <label for="teamsFilterLabel" class="form-label">Teams</label>
+  
+                      <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text">
+                          <i class="bi-people-fill"></i>
+                        </div>
+                        <input class="form-control" id="teamsFilterLabel" placeholder="Name" aria-label="Name">
+                      </div>
+                    </div>
+                    <!-- End Form -->
+                  </div>
+                  <!-- End Col -->
+                  <div class="col-sm-12 col-lg-6">
+                    <div class="d-flex justify-content-end gap-3 pt-5">
+                      <button type="button" class="btn btn-primary">Apply</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Row -->
+  
+                
+              </form>
+            </div>
+          </div>
+          <!-- End Filter Search Collapse -->
+  
+          <!-- Table -->
+          <div class="table-responsive datatable-custom" >
+            <table id="datatable" class="table table-borderless table-thead-bordered card-table" data-hs-datatables-options='{
+                     "autoWidth": false,
+                     "columnDefs": [{
+                        "targets": [0, 6],
+                        "orderable": false
+                      }],
+                     "columns": [
+                        null,
+                        null,
+                        { "width": "35%" },
+                        null,
+                        null,
+                        null,
+                        null
+                      ],
+                     "order": [],
+                     "info": {
+                       "totalQty": "#datatableWithPaginationInfoTotalQty"
+                     },
+                     "search": "#datatableSearch",
+                     "entries": "#datatableEntries",
+                     "pageLength": 8,
+                     "isResponsive": false,
+                     "isShowPaging": false,
+                     "pagination": "datatablePagination"
+                   }'>
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="table-column-pe-0">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="datatableCheckAll" style="border: 1px solid rgb(24, 24, 24);">
+                      <label class="form-check-label" for="datatableCheckAll"></label>
+                    </div>
+                  </th>
+                  <th scope="col" class="table-column-ps-0">Name</th>
+                  <th scope="col" style="min-width: 20rem;">Email</th>
+                  <th scope="col" >State</th>
+                  <th scope="col" >Country</th>
+                 
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for row in employess %}
+                <tr>
+                  <td class="table-column-pe-0">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="{{row.pk}}" id="teamDataCheck1" style="border: 1px solid rgb(24, 24, 24);">
+                      <label class="form-check-label" for="teamDataCheck1"></label>
+                    </div>
+                  </td>
+                  <td class="table-column-ps-0"><a href="{% url 'accounts:my_profile' row|profile_pk %}">{{row}}</a></td>
+                  <td>{{row|get_email}}</td>
+                  <td>{{row|profile_state}}</td>
+                  <td>{{row|profile_country}}</td>
+                  <td>
+                    {% if row|see_users %}
+                    <span class="legend-indicator bg-success"></span>
+                    
+                     available 
+                     
+                      {% else %}
+                      <span class="legend-indicator bg-danger"></span>
+                    Offline
+                    {% endif %}</td>
+                  
+                  
+                  <td>
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-white btn-sm" id="teamsDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                        More <i class="bi-chevron-down ms-1"></i>
+                      </button>
+  
+                      <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end" aria-labelledby="teamsDropdown1">
+                        <a class="dropdown-item" href="#">Rename team</a>
+                        <a class="dropdown-item" href="#">Add to favorites</a>
+                        <a class="dropdown-item" href="#">Archive team</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+          <!-- End Table -->
+        
+          <!-- Footer -->
+          <div class="card-footer">
+            <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+              <div class="col-sm mb-2 mb-sm-0">
+                <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                  <span class="me-2">Showing:</span>
+  
+                  <!-- Select -->
+                  <div class="tom-select-custom">
+                    <select id="datatableEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
+                              "searchInDropdown": false,
+                              "hideSearch": true
+                            }'>
+                      <option value="4">4</option>
+                      <option value="6">6</option>
+                      <option value="8" selected>8</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                  <!-- End Select -->
+  
+                  <span class="text-secondary me-2">of</span>
+  
+                  <!-- Pagination Quantity -->
+                  <span id="datatableWithPaginationInfoTotalQty"></span>
+                </div>
+              </div>
+              <!-- End Col -->
+  
+              <div class="col-sm-auto">
+                <div class="d-flex justify-content-center justify-content-sm-end">
+                  <!-- Pagination -->
+                  <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                </div>
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+          </div>
+          <!-- End Footer -->
+        </div>
+        <!-- End Card -->
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-6 mb-3 mb-lg-0">
+          <!-- Card -->
+          <div class="card h-100">
+            <!-- Header -->
+            <div class="card-header card-header-content-sm-between">
+              <h4 class="card-header-title mb-2 mb-sm-0">Top 5 Products (based on click through rate)</h4>
+
+              
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+              <!-- Chart -->
+              <canvas id="top_products"></canvas>
+
+                <script>
+                  var ctx = document.getElementById('top_products').getContext('2d');
+                  var labels = JSON.parse('{{top_5_product|tojson|safe}}');
+                  var datas = JSON.parse('{{top_5_product_value|tojson|safe}}');
+             
+                  console.log(labels);
+                  console.log(datas)
+          
+                  
+                  var chart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Clicked ',
+                        data: datas,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                  }
+                  });
+                </script>
+              <!-- End Row -->
+            </div>
+            <!-- End Body -->
+          </div>
+          <!-- End Card -->
+        </div>
+
+        <div class="col-lg-6 mb-3 mb-lg-0">
+          <!-- Card -->
+          <div class="card h-100">
+            <!-- Header -->
+            <div class="card-header card-header-content-sm-between">
+              <h4 class="card-header-title mb-2 mb-sm-0">Top 5 Blogs (based on click through rate)</h4>
+
+              
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+              <!-- Chart -->
+              <canvas id="top_blogs"></canvas>
+
+                <script>
+                  var ctx = document.getElementById('top_blogs').getContext('2d');
+                  var labels = JSON.parse('{{top_5_blog|tojson|safe}}');
+                  var datas = JSON.parse('{{top_5_blog_value|tojson|safe}}');
+             
+                  console.log(labels);
+                  console.log(datas)
+          
+                  
+                  var chart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Clicked ',
+                        data: datas,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                  }
+                  });
+                </script>
+              <!-- End Row -->
+            </div>
+            <!-- End Body -->
+          </div>
+          <!-- End Card -->
+        </div>
+
+       
+      </div>
+    </div>
+    <!-- End Content -->
+
+
+  </div>
+   <!-- Share with people Modal -->
+   <div class="modal fade" id="shareWithPeopleModal" tabindex="-1" aria-labelledby="shareWithPeopleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="shareWithPeopleModalLabel">Invite User</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- Form -->
+          <form method="post">
+            {% csrf_token %}
+           
+              <!-- Form -->
+              <div class="mb-3">
+                <label for="team_title" class="form-label">User email</label>
+
+                <input type="email" class="form-control form-control-hover-light" id="invite_email" >
+                <label for="team_pk" class="form-label">Select Team</label> 
+                <select name="team" id="team_pk" class="form-control">
+                  {% for team in teams %}
+                  <option value="{{team.pk}}">{{team.title}}</option>
+                  {% endfor %}
+                </select>
+                
+              </div>
+              <!-- End Form -->
+
+     
+
+              <!-- Form -->
+           
+          
+          </form>
+          <!-- End Form Switch -->
+        </div>
+        <!-- End Body -->
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <div class="row align-items-center flex-grow-1 mx-n2">
+            <div class="col-sm-9 mb-2 mb-sm-0">
+              
+            </div>
+            <!-- End Col -->
+
+            <div class="col-sm-3 text-sm-end">
+              <button class="btn btn-primary" id="team-invite-btn">invite</button>
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+        </div>
+        <!-- End Footer -->
+      </div>
+    </div>
+  </div>
+  <!-- End Share with people Modal -->
+
+  <script>
+    $('#team-invite-btn').click(function(){
+    console.log("team invite function called");
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  $.ajax({
+        url: "/dashboard/teams/invite/",
+        type: "POST",
+        data:{ 
+          'invite_email': $('#invite_email').val(),
+          'team_pk': $('#team_pk').val(), 
+          csrfmiddlewaretoken: csrftoken },
+            dataType : "html",
+        success: function (data) {
+          console.log(data);
+          
+            const settingToast = new bootstrap.Toast(document.querySelector('#notificationsettingToast'))
+            $('#notificationsettingToast-body').html(data)
+            
+          
+            if (data=="User invited Successfully"){
+              location.reload(true);
+            }else{
+          
+              $('#invite_email').val('');
+            
+              $('#shareWithPeopleModal').click();
+              
+              settingToast.show();
+             
+            }
+          
+        }
+    });
+  });
+  </script>
+{% endblock %}

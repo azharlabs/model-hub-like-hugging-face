@@ -1,0 +1,98 @@
+{% extends 'dash_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-end">
+        <div class="col-sm mb-2 mb-sm-0">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-no-gutter">
+              <li class="breadcrumb-item"><a class="breadcrumb-link" href="{% url 'api:api_home' %}">API</a></li>
+              <li class="breadcrumb-item active" aria-current="page">API Keys</li>
+            </ol>
+          </nav>
+
+          <h1 class="page-header-title">API Keys</h1>
+        </div>
+        <!-- End Col -->
+
+       
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Page Header -->
+
+    <div class="row">
+      <div class="col-md-6 col-lg-6 mb-3 mb-lg-5">
+        <!-- Card -->
+        <div class="card">
+          <div class="card-body text-center">
+            <small class="text-cap"><span class="legend-indicator bg-success"></span> No. of Product Accessed</small>
+                <span class="js-counter d-block display-3 text-dark mb-2" data-value="{{product_count}}">{{product_count}}</span>
+    
+            
+          </div>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+      <div class="col-md-6 col-lg-6 mb-3 mb-lg-5">
+        <!-- Card -->
+        <div class="card">
+          <div class="card-body text-center">
+            <small class="text-cap"><span class="legend-indicator bg-danger"></span> Amount that to Pay</small>
+                <span class="js-counter d-block display-3 text-dark mb-2" data-value="{{amount|floatformat:3}}">{{amount|floatformat:3}}</span>
+    
+            
+          </div>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Col -->
+
+    </div>
+    <!-- End Row -->
+    <div class="row mb-5">
+     
+     <div class="card">
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
+      
+      
+      
+      <script>
+        const ctx = document.getElementById('myChart');
+        var labels = '{{products}}';
+        var datas = '{{product_amount}}';
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [labels],
+            datasets: [{
+              label: '# amount spend ',
+              data: [datas],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+       
+     </div>
+      
+
+    </div>
+
+  </div>
+{% endblock %}

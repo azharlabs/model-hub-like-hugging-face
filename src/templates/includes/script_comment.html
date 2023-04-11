@@ -1,0 +1,35 @@
+<div class="border-0 border-start border-2 ps-2" id="{{comment.id}}" {% if  comment.parent.name%} style="padding-left: 30px;" {% endif %}>
+
+    <div class="mt-3">
+        <strong >{{comment.name}}</strong> 
+        {% if  comment.parent.name%} to <strong>{{comment.parent.name}}</strong>{% endif %}
+        <small class="text-muted">On {{ comment.created.date }}</small>
+    </div>
+    <div class="border p-2 rounded" >
+        <p>{{comment.body}}</p>
+        {% if request.user.is_authenticated %}
+        <button class="btn btn-primary btn-sm" onclick="handleReply({{comment.id}})">Reply</button>
+        {% endif %}
+    
+        <div id="reply-form-container-{{comment.id}}" style="display:none">
+        
+            <form method="post" class="mt-3" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value="{{scripts.id}}">
+                <input type="hidden" name="parent" value="{{comment.id}}">
+                <input type="hidden" name="post_url" value="{{scripts.get_absolute_url}}">
+                <input type="hidden" name="name" value="{{request.user}}">
+                <input type="hidden" name="email" value="{{request.user.email}}">
+                <textarea name="body" class="form-control" rows="5"></textarea>
+<br>
+                <div>
+                    <button type="button" onclick="handleCancel({{comment.id}})" class="btn btn-light border btn-sm">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm" hx-post="{% url 'dashboard:scripts:reply_page' %}" hx-target="#comment_list">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% for comment in comment.get_comments %}
+        {% include 'includes/script_comment.html' with comment=comment %}
+    {% endfor %}
+</div>

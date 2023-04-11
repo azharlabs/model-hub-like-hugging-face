@@ -1,0 +1,204 @@
+{% extends 'solution_base.html' %}
+{% load static %}
+{% load tags %}
+{% block content %}
+<style>
+    .editor-container {
+      width: 100%;
+      height: 200px;
+      margin: 20px auto;
+      position: relative;
+    }
+    
+    #editor {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      font-size: 15px;
+    }
+    
+    </style>
+<div class="container-lg" style="margin-top: 60px; padding-bottom: 100px;">
+    <div class="row">
+        <div class="page-header" style="padding: 0px;margin: 0px; border: 0px;">
+            <div class="d-flex mb-3">
+
+    
+              <div class="flex-grow-1 ms-4">
+                <div class="row">
+                  <div class="col-lg mb-3 mb-lg-0">
+                    <h1 class="page-header-title">Classification </h1><br>
+                  
+                    
+                    <!-- End Row -->
+                  </div>
+                  <!-- End Col -->
+    
+                  <div class="col-lg-auto">
+                  
+    
+                    <div class="d-flex">
+                     
+                      
+                    {% if request.GET.execute %}
+                      <a class="btn btn-primary" target="_blank" style="margin-right: 10px;" href="{% url 'dashboard:files:analytics' files.pk %}">
+                        Save
+                      </a>
+                    
+                      <a class="btn btn-warning " target="_blank" style="margin-right: 10px;" href="{% url 'solutions:home' %}?data={{files.pk}}">
+                       Changes Report
+                      </a>
+                      {% else %}
+                      <form method='get' enctype="multipart/form-data" id="target-form">{% csrf_token %}</form>
+                      <label for="target" style="margin-right: 10px;">Select Target</label>
+                      <select name="target" form="target-form" id="target" class="form-control" style="margin-right: 10px;">
+                        {% for col in columns %}
+                        <option value="{{col}}">{{col}}</option>
+                        {% endfor %}
+                      </select>
+                      <input type="text" name="execute" value="True" hidden form="target-form">
+                      <input type="text" name="data" value="{{request.GET.data}}" hidden form="target-form">
+                      <button class="btn btn-success " form="target-form" type="submit">
+                        Execute
+                      </button>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- End Col -->
+    
+                </div>
+                <!-- End Row -->
+              
+                <h3 class="page-header-title">{{files.script_name}} (sample)</h3>
+         
+                <div class="row align-items-center">
+                
+                  <!-- End Col -->
+                  {% if files.created_date %}
+                  <div class="col-auto">
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">Created date: {{files.created_date}}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if files.author %}
+                  <div class="col-auto">
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">Owner: {{files.author}}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+          
+               
+                  <!-- End Col -->
+                </div>
+                <hr>
+               
+              </div>
+            </div>
+            <!-- End Media -->
+            {% if messages %}
+            <ul class="messages ">
+                {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <span class="fw-semi-bold">{{ message }}</span> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+    
+                
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <!-- Nav -->
+            <!-- Nav -->
+
+            <!-- End Nav -->
+          </div>
+    </div>
+    <div class="row">
+     
+        <div class="col-sm-12 mb-6" >
+          <table class="dataframe table table-bordered ">
+            <thead>
+              <tr>
+                {% for i in columns %}
+                <th>{{i}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in data_values %}
+              <tr>
+                {% for value in row %}
+                <td>{{value}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>                  
+    
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row">
+        <h2>Clean the Data Using Pandas</h2><br>
+        <form method="POST" enctype="multipart/form-data" class="pt-6">
+          {% csrf_token %}
+
+           
+            <div class="mb-3">
+              {{pandas_form.pandas_code}}
+<div class="editor-container">
+    <div id="editor">
+{{pandas_code}}
+    </div>
+  </div>
+                  
+              
+             
+            </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">Execute</button>
+            </div>
+        </form>
+
+       
+    </div>
+
+<script>
+  // INITIALIZATION OF DATATABLES
+// =======================================================
+
+  $(document).ready( function () {
+$('.dataframe ').DataTable({
+    searching: false,
+    ordering: false,
+    info: false,
+    
+    paging:false,
+
+//   pagingType: 'full_numbers',
+  scrollX: true,  
+});
+} );
+</script>
+</div>
+<script>
+
+
+var editor = ace.edit('editor');
+        editor.session.setMode("ace/mode/python");
+        editor.setTheme("ace/theme/cobalt");
+        console.log(editor.getSession().getValue());
+
+    var input = $('#id_pandas_code');
+    input.val(editor.getSession().getValue());
+        editor.getSession().on("change", function () {
+            input.val(editor.getSession().getValue());
+    });
+</script>
+{% endblock %}

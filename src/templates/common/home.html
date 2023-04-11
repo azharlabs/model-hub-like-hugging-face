@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container content-space-t-3 content-space-t-lg-4 content-space-b-2">
+        <div class="w-lg-65 text-center mx-lg-auto">
+          <!-- Heading -->
+          <div class="mb-5">
+            <h1 class="display-4 mb-3">The <span class="text-primary">#1</span> AI as API development tool.</h1>
+            <p class="lead">tenison is built for every data scientist, so your software team to plan, track, and release great software with great API.</p>
+          </div>
+          <!-- End Heading -->
+
+          <div class="d-grid d-sm-flex justify-content-sm-center align-items-sm-center gap-3">
+            <a class="btn btn-primary btn-transition" href="{% url 'common:contactus' %}">Contact sales</a>
+            <small>or</small>
+            <a class="btn btn-soft-dark btn-transition" href="{% url 'membership:join' %}">See pricing <i class="bi-chevron-right small ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+
+<div class="container-lg content-space-2 content-space-lg-3">
+      <div class="row align-items-lg-center">
+        <div class="col-lg-5 mb-7 mb-lg-0">
+          <!-- Heading -->
+          <div class="mb-5">
+            <h2>Dedicated app development platform</h2>
+            <p>From open source to premium services, Front makes app creation lightning fast.</p>
+          </div>
+          <!-- End Heading -->
+
+          <div class="row mb-4">
+            <div class="col-6">
+              <!-- List Checked -->
+              <ul class="list-checked list-checked-success mb-0">
+                <li class="list-checked-item">Mobile devs</li>
+                <li class="list-checked-item">App builder</li>
+                <li class="list-checked-item">Subscriptions <span class="badge bg-primary rounded-pill ms-1">Beta</span></li>
+                <li class="list-checked-item">Integrations</li>
+              </ul>
+              <!-- End List Checked -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-6">
+              <!-- List Checked -->
+              <ul class="list-checked list-checked-success mb-0">
+                <li class="list-checked-item">Reporting</li>
+                <li class="list-checked-item">Dashboard</li>
+                <li class="list-checked-item">Feedback</li>
+              </ul>
+              <!-- End List Checked -->
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+
+          <a class="link" href="#">Full API reference <i class="bi-chevron-right small ms-1"></i></a>
+        </div>
+        <!-- End Col -->
+
+        <div class="col-lg-7">
+          <!-- Card -->
+          <div class="card bg-dark" style="min-height: 27rem;">
+            <div class="card-body">
+              <!-- Nav Scroller -->
+              <div class="js-nav-scroller hs-nav-scroller-horizontal hs-nav-scroller-light">
+                <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+                  <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                    <i class="bi-chevron-left"></i>
+                  </a>
+                </span>
+
+                <span class="hs-nav-scroller-arrow-next" style="display: none;">
+                  <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                    <i class="bi-chevron-right"></i>
+                  </a>
+                </span>
+
+                <div class="text-center">
+                  <!-- Nav Pills -->
+                  <ul class="nav nav-sm nav-pills nav-light nav-justified mb-5" id="featuresCodingTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" href="#featuresCodingOne" id="featuresCodingOne-tab" data-bs-toggle="tab" data-bs-target="#featuresCodingOne" role="tab" aria-controls="featuresCodingOne" aria-selected="false" tabindex="-1">Java</a>
+                    </li>
+
+                    <!-- <li class="nav-item" role="presentation">
+                      <a class="nav-link" href="#featuresCodingTwo" id="featuresCodingTwo-tab" data-bs-toggle="tab" data-bs-target="#featuresCodingTwo" role="tab" aria-controls="featuresCodingTwo" aria-selected="false" tabindex="-1">PHP</a>
+                    </li> -->
+
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" href="#featuresCodingThree" id="featuresCodingThree-tab" data-bs-toggle="tab" data-bs-target="#featuresCodingThree" role="tab" aria-controls="featuresCodingThree" aria-selected="false" tabindex="-1">Ruby</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" href="#featuresCodingFour" id="featuresCodingFour-tab" data-bs-toggle="tab" data-bs-target="#featuresCodingFour" role="tab" aria-controls="featuresCodingFour" aria-selected="false" tabindex="-1">C++</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" href="#featuresCodingFive" id="featuresCodingFive-tab" data-bs-toggle="tab" data-bs-target="#featuresCodingFive" role="tab" aria-controls="featuresCodingFive" aria-selected="false" tabindex="-1">Python</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" href="#featuresCodingSix" id="featuresCodingSix-tab" data-bs-toggle="tab" data-bs-target="#featuresCodingSix" role="tab" aria-controls="featuresCodingSix" aria-selected="true">JS</a>
+                    </li>
+                  </ul>
+                  <!-- End Nav Pills -->
+                </div>
+              </div>
+              <!-- End Nav Scroller -->
+
+              <!-- Tab Content -->
+              <div class="tab-content" id="featuresCodingTabContent">
+                <div class="tab-pane fade" id="featuresCodingOne" role="tabpanel" aria-labelledby="featuresCodingOne-tab" style="height: 400px; overflow-y: scroll; position: relative;">
+                  <!-- Code -->
+                  <pre style="color: white; margin-left: -150px;">
+                   
+                    import java.io.BufferedReader;
+                    import java.io.InputStreamReader;
+                    import java.net.HttpURLConnection;
+                    import java.net.URL;
+                    
+                    public class Main {
+                      public static void main(String[] args) throws Exception {
+                        // Set the API endpoint URL
+                        String url = "https://{{request.get_host}}/endpoint/";
+                    
+                        // Create a new URL object from the endpoint URL
+                        URL obj = new URL(url);
+                    
+                        // Open a connection to the URL using the HTTP GET method
+                        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                        con.setRequestMethod("GET");
+                    
+                        // Set any additional request headers here, if needed
+                        con.setRequestProperty("Content-Type", "application/json");
+                    
+                        // Read the response from the API
+                        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                        String inputLine;
+                        StringBuffer response = new StringBuffer();
+                        while ((inputLine = in.readLine()) != null) {
+                          response.append(inputLine);
+                        }
+                        in.close();
+                    
+                        // Print the response from the API
+                        System.out.println(response.toString());
+                      }
+                    }
+                    
+
+                
+               </pre>
+                  <!-- End Code -->
+                </div>
+
+                <div class="tab-pane fade" id="featuresCodingTwo" role="tabpanel" aria-labelledby="featuresCodingTwo-tab">
+                  <pre style="color: white; margin-left: -150px;">
+                   
+                    <?php
+
+                    // Set the API endpoint URL
+                    $url = "https://{{request.get_host}}/endpoint/";
+                    
+                    // Make a GET request to the API endpoint
+                    $response = file_get_contents($url);
+                    
+                    // Print the response from the API
+                    echo $response;
+                    
+                    ?>
+                    
+                
+               </pre>
+                </div>
+
+                <div class="tab-pane fade" id="featuresCodingThree" role="tabpanel" aria-labelledby="featuresCodingThree-tab">
+                  <pre style="color: white; margin-left: -150px;">
+                   
+                    require "net/http"
+
+                    # Set the API endpoint URL
+                    url = "https://{{request.get_host}}/endpoint/"
+                    
+                    # Create a new HTTP object
+                    http = Net::HTTP.new(url)
+                    
+                    # Make a GET request to the API endpoint
+                    response = http.get(url)
+                    
+                    # Print the response from the API
+                    puts response.body
+                    
+
+                
+               </pre>
+                </div>
+
+                <div class="tab-pane fade" id="featuresCodingFour" role="tabpanel" aria-labelledby="featuresCodingFour-tab" style="height: 400px; overflow-y: scroll; position: relative;"> 
+                  <pre style="color: white; margin-left: -150px;" >
+                   
+                    #include <iostream
+                      #include <string>
+                      #include <curl/curl.h>
+                      
+                      int main(int argc, char* argv[]) {
+                        // Set the API endpoint URL
+                        std::string url = "https://{{request.get_host}}/endpoint/";
+                      
+                        // Initialize a new cURL session
+                        CURL* curl = curl_easy_init();
+                        if (curl) {
+                          // Set the URL for the cURL request
+                          curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+                      
+                          // Set the cURL options
+                          curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+                          curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
+                          curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "deflate");
+                      
+                          // Set a callback function to handle the response data
+                          std::string response;
+                          curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, [](char* data, size_t size, size_t nmemb, std::string* buffer) -> size_t {
+                            buffer->append(data, size * nmemb);
+                            return size * nmemb;
+                          });
+                          curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+                      
+                          // Make the GET request
+                          CURLcode res = curl_easy_perform(curl);
+                      
+                          // Check for errors
+                          if (res != CURLE_OK) {
+                            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+                          } else {
+                            // Print the response from the API
+                            std::cout << response << std::endl;
+                          }
+                      
+                          // Clean up the cURL session
+                          curl_easy_cleanup(curl);
+                        }
+                      
+                        return 0;
+                      }
+                      
+
+                
+               </pre>
+                </div>
+
+                <div class="tab-pane fade" id="featuresCodingFive" role="tabpanel" aria-labelledby="featuresCodingFive-tab">
+                
+                 <pre style="color: white; margin-left: -150px;">
+                   
+                      import requests
+
+                      url = "https://{{request.get_host}}/endpoint/"
+                      
+                      response = requests.get(url, params={"key": "value"})
+                                            
+                      print(response.json())
+
+                  
+                 </pre>
+
+                </div>
+
+                <div class="tab-pane fade active show" id="featuresCodingSix" role="tabpanel" aria-labelledby="featuresCodingSix-tab">
+                  <pre style="color: white; margin-left: -150px;">
+                   
+                    // Set the API endpoint URL
+                    const url = "https://{{request.get_host}}/endpoint/";
+                    
+                    // Make a GET request to the API endpoint
+                    fetch(url)
+                      .then(response => response.json())
+                      .then(data => console.log(data))
+                      .catch(error => console.error(error));
+                    
+
+                
+               </pre>
+                </div>
+              </div>
+              <!-- End Tab Content -->
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
+        <!-- End Col -->
+      </div>
+      <!-- End Row -->
+    </div>
+
+  
+{% endblock %}
